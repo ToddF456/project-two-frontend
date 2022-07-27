@@ -1,4 +1,4 @@
-#carouselExampleControls {
+form {
   margin: 1%;
 }
 
@@ -29,8 +29,4 @@
 
 .custom-day.faded {
   background-color: rgba(2, 117, 216, 0.5);
-}
-
-form {
-  margin: 1%;
 }

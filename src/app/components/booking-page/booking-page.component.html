@@ -1,0 +1,44 @@
+<!-- Booking Form -->
+<booking-form></booking-form>
+
+<!-- Room Cards -->
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col-4" *ngFor="let room of roomList">
+      <div class="card">
+        <div class="card">
+          <img
+            src="{{ room.img }}"
+            class="card-img-top"
+            alt="{{ room.name }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ room.name }}</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Beds: {{ room.beds }}</li>
+              <li class="list-group-item">Max Guests: {{ room.max_guests }}</li>
+              <li class="list-group-item">
+                Price per night: ${{ room.price_per_night }}
+              </li>
+            </ul>
+            <br />
+            <div class="d-grid gap-2">
+              <button
+                class="btn btn-warning"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Book this Room
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+
+<!-- Booking Confirmation Modal -->
+<booking-modal></booking-modal>

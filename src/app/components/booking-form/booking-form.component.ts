@@ -6,11 +6,11 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css'],
+  selector: 'booking-form',
+  templateUrl: './booking-form.component.html',
+  styleUrls: ['./booking-form.component.css'],
 })
-export class HomepageComponent implements OnInit {
+export class BookingFormComponent implements OnInit {
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
@@ -22,8 +22,6 @@ export class HomepageComponent implements OnInit {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
-
-  ngOnInit(): void {}
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
@@ -70,4 +68,6 @@ export class HomepageComponent implements OnInit {
       ? NgbDate.from(parsed)
       : currentValue;
   }
+
+  ngOnInit(): void {}
 }
