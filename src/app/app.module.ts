@@ -7,9 +7,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/home-page/homepage.component';
 import { BookingFormComponent } from './components/booking-form/booking-form.component';
+import { BookingPageComponent } from './components/booking-page/booking-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomepageComponent, BookingFormComponent],
+  declarations: [AppComponent, NavbarComponent, HomepageComponent, BookingFormComponent, BookingPageComponent],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],

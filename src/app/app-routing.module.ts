@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomepageComponent } from './components/home-page/homepage.component';
+import { BookingPageComponent } from './components/booking-page/booking-page.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'home', component: HomepageComponent },
-  // { path: 'booking', component: BookingPageComponent },
+  { path: 'booking', component: BookingPageComponent },
 ];
 
 @NgModule({
