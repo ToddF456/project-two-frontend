@@ -1,0 +1,45 @@
+<div class="container">
+  <h1 class="display-6">Your Reservations:</h1>
+  <br />
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Dates</th>
+        <th scope="col">Guests</th>
+        <th scope="col">Room Type</th>
+        <th scope="col">Total</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of reservationList; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.client_first_name }} {{ item.client_last_name }}</td>
+        <td>From: {{ item.start_date }} - To: {{ item.end_date }}</td>
+        <td>{{ item.num_guests }}</td>
+        <td>{{ item.room_type }}</td>
+        <td>${{ item.price }}.00</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#reservationsModal"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-warning">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<reservations-modal></reservations-modal>
