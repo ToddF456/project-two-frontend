@@ -12,7 +12,8 @@ export class ReservationsPageComponent implements OnInit {
   reservationList: Reservation[] = RESERVATIONS;
   resForm: FormGroup = new FormGroup({});
   reservation_number: number = 0;
-  reservation_name: string = '';
+  reservation_firstName: string = '';
+  reservation_lastName: string = '';
 
   constructor() {}
 
@@ -22,14 +23,14 @@ export class ReservationsPageComponent implements OnInit {
         Validators.required,
         Validators.min(1),
       ]),
-      resName: new FormControl(null, Validators.required),
+      resFirstName: new FormControl(null, Validators.required),
+      resLastName: new FormControl(null, Validators.required),
     });
   }
 
   onSubmit() {
     this.reservation_number = this.resForm.value.resNumber;
-    this.reservation_name = this.resForm.value.resName;
-    console.log(this.reservation_number);
-    console.log(this.reservation_name);
+    this.reservation_firstName = this.resForm.value.resFirstName;
+    this.reservation_lastName = this.resForm.value.resLastName;
   }
 }

@@ -13,12 +13,21 @@
       />
     </div>
     <div class="mb-3">
-      <label for="resName" class="form-label">Name</label>
+      <label for="resFirstName" class="form-label">First Name</label>
       <input
         type="text"
         class="form-control"
-        id="resName"
-        formControlName="resName"
+        id="resFirstName"
+        formControlName="resFirstName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="resLastName" class="form-label">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="resLastName"
+        formControlName="resLastName"
       />
     </div>
 
@@ -34,4 +43,8 @@
 </div>
 
 <!-- Modal -->
-<reservations-modal></reservations-modal>
+<reservations-modal
+  [reservation_number]="reservation_number"
+  [reservation_firstName]="reservation_firstName"
+  [reservation_lastName]="reservation_lastName"
+></reservations-modal>
