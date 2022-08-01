@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NgbDate,
-  NgbCalendar,
-  NgbDateParserFormatter,
-} from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Reservation } from 'src/models/reservation';
+import { Customer } from 'src/models/customer';
+import { TempValuesService } from 'src/app/services/temp-values.service';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'booking-form',
@@ -11,63 +12,43 @@ import {
   styleUrls: ['./booking-form.component.css'],
 })
 export class BookingFormComponent implements OnInit {
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  bookingForm: FormGroup = new FormGroup({});
+  reservation: Reservation = new Reservation();
+  customer: Customer = new Customer();
 
   constructor(
-    private calendar: NgbCalendar,
-    public formatter: NgbDateParserFormatter
-  ) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    private tempValuesService: TempValuesService,
+    private router: Router,
+    private reservationService: ReservationService
+  ) {}
+
+  ngOnInit(): void {
+    this.bookingForm = new FormGroup({
+      startDate: new FormControl(null, Validators.required),
+      endDate: new FormControl(null, Validators.required),
+      numGuests: new FormControl(null, [
+        Validators.required,
+        Validators.min(1),
+      ]),
+    });
   }
 
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (
-      this.fromDate &&
-      !this.toDate &&
-      date &&
-      date.after(this.fromDate)
-    ) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-  }
+  onSubmit() {
+    // Prepare temp reservation with new start date / end date / confirmation number:
+    this.reservation.start_date = this.bookingForm.value.startDate;
+    this.reservation.end_date = this.bookingForm.value.endDate;
+    this.reservation.confirmationNumber =
+      Math.floor(1000 + Math.random() * 9000) + this.reservation.res_id;
 
-  isHovered(date: NgbDate) {
-    return (
-      this.fromDate &&
-      !this.toDate &&
-      this.hoveredDate &&
-      date.after(this.fromDate) &&
-      date.before(this.hoveredDate)
-    );
-  }
+    // Prepare temp customer with new number of guests:
+    this.customer.numGuests = this.bookingForm.value.numGuests;
 
-  isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-  }
+    // Save temp reservation:
+    this.tempValuesService.setReservation(this.reservation);
+    // Save temp customer:
+    this.tempValuesService.setCustomer(this.customer);
 
-  isRange(date: NgbDate) {
-    return (
-      date.equals(this.fromDate) ||
-      (this.toDate && date.equals(this.toDate)) ||
-      this.isInside(date) ||
-      this.isHovered(date)
-    );
+    // Redirect to booking page:
+    this.router.navigate(['/booking']);
   }
-
-  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
-    const parsed = this.formatter.parse(input);
-    return parsed && this.calendar.isValid(NgbDate.from(parsed))
-      ? NgbDate.from(parsed)
-      : currentValue;
-  }
-
-  ngOnInit(): void {}
 }

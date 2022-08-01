@@ -1,11 +1,8 @@
-export interface Reservation {
-  res_id: number;
-  client_id: number;
-  client_first_name: string;
-  client_last_name: string;
-  start_date: Date;
-  end_date: Date;
-  num_guests: number;
-  room_type: string;
-  price: number;
+export class Reservation {
+  res_id: number = 0;
+  room_id: number = 0;
+  customer_id: number = 0;
+  start_date: string = '';
+  end_date: string = '';
+  confirmationNumber: number = 0;
 }

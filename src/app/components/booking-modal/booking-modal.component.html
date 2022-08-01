@@ -1,4 +1,5 @@
-<!-- Modal -->
+<!-- 3rd Page: Booking Modal -->
+
 <div
   class="modal fade"
   id="bookingModal"
@@ -6,7 +7,7 @@
   aria-labelledby="bookingModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="bookingModalLabel">Your Booking:</h5>
@@ -18,22 +19,90 @@
         ></button>
       </div>
       <div class="modal-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Dates:</li>
-          <li class="list-group-item">Room:</li>
-          <li class="list-group-item">Number of Guests:</li>
-          <li class="list-group-item"><strong>Grand Total:</strong></li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning">Submitt</button>
-        <button
-          type="button"
-          class="btn btn-outline-warning"
-          data-bs-dismiss="modal"
-        >
-          Cancel
-        </button>
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <!-- ------------------------ -->
+              <!-- Form Start Here -->
+              <form [formGroup]="bookingModal" (ngSubmit)="onSubmit()">
+                <!-- Personal Data -->
+                <div class="col-6">
+                  <!-- Fist Name -->
+                  <div class="mb-3">
+                    <label for="firstNameInput" class="form-label"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="firstNameInput"
+                      formControlName="first_name"
+                    />
+                  </div>
+
+                  <!-- Last Name -->
+                  <div class="mb-3">
+                    <label for="lastNameInput" class="form-label"
+                      >Last Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastNameInput"
+                      formControlName="last_name"
+                    />
+                  </div>
+
+                  <!-- Email -->
+                  <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emailInput"
+                      formControlName="email"
+                    />
+                  </div>
+
+                  <!-- Phone Number -->
+                  <div class="mb-3">
+                    <label for="phoneInput" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phoneInput"
+                      formControlName="phone"
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning">Submit</button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-warning"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="col-6">
+              <!-- Reservation Data -->
+              <div class="col-6">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Check-in:</li>
+                  <li class="list-group-item">Check-out:</li>
+                  <li class="list-group-item">Room:</li>
+                  <li class="list-group-item">Number of Guests:</li>
+                  <li class="list-group-item"><strong>Grand Total:</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
