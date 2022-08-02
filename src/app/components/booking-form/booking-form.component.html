@@ -9,6 +9,7 @@
   <small class="h4 text-muted">Dates:</small>
   <div class="col-12">
     <input class="form-control" type="date" formControlName="startDate" />
+    <small *ngIf="bookingForm.get('startDate').invalid && bookingForm.get('startDate').touched" class="text-danger">Date is Required</small>
   </div>
   <div class="col-12">
     <input class="form-control" type="date" formControlName="endDate" />
@@ -25,6 +26,9 @@
     value="1"
     formControlName="numGuests"
   />
+
+
+
 
   <!-- Submitt Button -->
   <button class="btn btn-outline-warning" type="submit">Search</button>
