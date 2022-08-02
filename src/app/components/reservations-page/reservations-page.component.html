@@ -109,12 +109,12 @@
                 <label for="resInfoFormControlInput1" class="form-label"
                   >Room Type</label
                 >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="resInfoFormControlInput1"
-                  formControlName="roomType"
-                />
+                <select id="resInfoFormControlInput1" class="form-control" formControlName="roomType">
+                  <option *ngFor="let room of roomList" [value]="room.roomId">
+                    {{room.type}}, {{room.numBeds}} beds, ${{room.price}}
+                  </option>
+                </select>
+                
               </div>
               <div class="mb-3">
                 <label for="resInfoFormControlInput2" class="form-label"
