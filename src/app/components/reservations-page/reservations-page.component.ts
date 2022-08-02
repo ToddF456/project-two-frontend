@@ -27,8 +27,8 @@ export class ReservationsPageComponent implements OnInit {
     private resService: ReservationService,
     private customerService: CustomerService,
     private tempValuesService: TempValuesService,
-    private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -84,5 +84,11 @@ export class ReservationsPageComponent implements OnInit {
     this.customerService
       .saveCustomer(this.customer)
       .subscribe((res) => console.log(res));
+  }
+
+  onDelete() {
+    this.resService.deleteReservation(this.reservation).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
