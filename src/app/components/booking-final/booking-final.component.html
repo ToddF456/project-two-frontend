@@ -1,0 +1,87 @@
+<!-- 3rd Page: Booking Confirmation -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <!-- ------------------------ -->
+      <!-- Form Start Here -->
+      <form [formGroup]="bookingModal" (ngSubmit)="onSubmit()">
+        <!-- Personal Data -->
+        <div class="col-6">
+          <!-- Fist Name -->
+          <div class="mb-3">
+            <label for="firstNameInput" class="form-label">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstNameInput"
+              formControlName="first_name"
+            />
+          </div>
+
+          <!-- Last Name -->
+          <div class="mb-3">
+            <label for="lastNameInput" class="form-label">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastNameInput"
+              formControlName="last_name"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="emailInput" class="form-label">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="emailInput"
+              formControlName="email"
+            />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="phoneInput" class="form-label">Phone Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phoneInput"
+              formControlName="phone"
+            />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-warning">Submit</button>
+        <button type="button" class="btn btn-outline-warning">Cancel</button>
+      </form>
+    </div>
+    <div class="col-6">
+      <!-- Reservation Data -->
+      <div class="col-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Check-in: </strong> <br />
+            {{ reservation.startDate | date: "fullDate" }}
+          </li>
+          <li class="list-group-item">
+            <strong>Check-out: </strong> <br />
+            {{ reservation.endDate | date: "fullDate" }}
+          </li>
+          <li class="list-group-item">
+            <strong>Room: </strong> <br />
+            {{ room.type }}
+          </li>
+          <li class="list-group-item">
+            <strong>Number of Guests: </strong> <br />
+            {{ customer.numGuests }}
+          </li>
+          <li class="list-group-item">
+            <strong>Grand Total:</strong> <br />
+            ${{ grand_total }}.00
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

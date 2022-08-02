@@ -1,0 +1,102 @@
+<!-- Change Reservation Details Form -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <!-- Personal Info -->
+      <h1 class="display-6">Your Information:</h1>
+      <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="firstNmeInput" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstNameInput"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="lastNameInput" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastNameInput"
+            formControlName="lastName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            formControlName="email"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="phoneInput" class="form-label">Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneInput"
+            formControlName="phoneNumber"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="col-6">
+      <!-- Reservation Info -->
+      <h1 class="display-6">Your Reservation:</h1>
+
+      <div class="mb-3">
+        <label for="resInfoFormControlInput1" class="form-label"
+          >Room Type</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="resInfoFormControlInput1"
+          placeholder="room type"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="resInfoFormControlInput2" class="form-label">From:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="resInfoFormControlInput2"
+          placeholder="from date"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="resInfoFormControlInput3" class="form-label">To:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="resInfoFormControlInput3"
+          placeholder="to date"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="resInfoFormControlInput4" class="form-label"
+          >Number of Guests</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="resInfoFormControlInput3"
+          placeholder="guests #"
+        />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-warning">Save Changes</button>
+    <button
+      type="button"
+      class="btn btn-outline-warning"
+      data-bs-dismiss="modal"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

@@ -1,8 +1,9 @@
-export interface Room {
-  id: number;
-  name: string;
-  img: string;
-  beds: string;
-  price_per_night: number;
-  max_guests: number;
+export class Room {
+  roomId: number = 0;
+  roomNumber: string = '';
+  type: string = '';
+  numBeds: number = 0;
+  maxOccupancy: number = 0;
+  price: number = 0;
+  img: string = '';
 }
