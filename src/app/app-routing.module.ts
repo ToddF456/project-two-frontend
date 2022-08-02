@@ -5,7 +5,6 @@ import { HomepageComponent } from './components/home-page/homepage.component';
 import { BookingPageComponent } from './components/booking-page/booking-page.component';
 import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
-import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 const routes: Routes = [
   {
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'booking', component: BookingPageComponent },
   { path: 'confirmation', component: BookingFinalComponent },
   { path: 'reservations', component: ReservationsPageComponent },
-  { path: 'reservations/change', component: ReservationFormComponent },
 ];
 
 @NgModule({

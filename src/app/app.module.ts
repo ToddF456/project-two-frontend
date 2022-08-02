@@ -13,7 +13,6 @@ import { BookingFormComponent } from './components/booking-form/booking-form.com
 import { BookingPageComponent } from './components/booking-page/booking-page.component';
 import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
-import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     BookingPageComponent,
     BookingFinalComponent,
     ReservationsPageComponent,
-    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,
