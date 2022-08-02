@@ -5,6 +5,5 @@ export class Room {
   numBeds: number = 0;
   maxOccupancy: number = 0;
   price: number = 0;
-  img_id: number = 0;
   img: string = '';
 }

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
+import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 
@@ -15,6 +16,7 @@ export class BookingFormComponent implements OnInit {
   bookingForm: FormGroup = new FormGroup({});
   reservation: Reservation = new Reservation();
   customer: Customer = new Customer();
+  room: Room = new Room();
 
   constructor(
     private tempValuesService: TempValuesService,
@@ -47,6 +49,8 @@ export class BookingFormComponent implements OnInit {
     this.tempValuesService.setReservation(this.reservation);
     // Save temp customer:
     this.tempValuesService.setCustomer(this.customer);
+    // Save temp room:
+    this.tempValuesService.setRoom(this.room);
 
     // Redirect to booking page:
     this.router.navigate(['/booking']);

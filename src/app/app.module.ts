@@ -10,7 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/home-page/homepage.component';
 import { BookingFormComponent } from './components/booking-form/booking-form.component';
 import { BookingPageComponent } from './components/booking-page/booking-page.component';
-import { BookingModalComponent } from './components/booking-modal/booking-modal.component';
+import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
 import { ReservationsModalComponent } from './components/reservations-modal/reservations-modal.component';
 
@@ -21,7 +21,7 @@ import { ReservationsModalComponent } from './components/reservations-modal/rese
     HomepageComponent,
     BookingFormComponent,
     BookingPageComponent,
-    BookingModalComponent,
+    BookingFinalComponent,
     ReservationsPageComponent,
     ReservationsModalComponent,
   ],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
+import { Room } from 'src/models/room';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { Customer } from 'src/models/customer';
 export class TempValuesService {
   tempReservation!: Reservation;
   tempCustomer!: Customer;
+  tempRoom!: Room;
 
   constructor() {}
 
@@ -25,5 +27,13 @@ export class TempValuesService {
   }
   getCustomer() {
     return this.tempCustomer;
+  }
+
+  // Temp room
+  setRoom(temp: Room) {
+    this.tempRoom = temp;
+  }
+  getRoom() {
+    return this.tempRoom;
   }
 }

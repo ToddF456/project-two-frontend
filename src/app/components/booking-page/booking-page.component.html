@@ -27,8 +27,7 @@
               <button
                 class="btn btn-warning"
                 type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#bookingModal"
+                (click)="onSubmit(room)"
               >
                 Book this Room
               </button>
@@ -40,6 +39,3 @@
     </div>
   </div>
 </div>
-
-<!-- Booking Confirmation Modal -->
-<booking-modal></booking-modal>

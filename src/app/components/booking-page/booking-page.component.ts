@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -12,21 +13,20 @@ import { Customer } from 'src/models/customer';
 })
 export class BookingPageComponent implements OnInit {
   roomList: Room[] = [];
-  tempReservation: Reservation = this.tempValuesService.getReservation();
-  tempCustomer: Customer = this.tempValuesService.getCustomer();
+  reservation!: Reservation;
+  customer!: Customer;
+  room!: Room;
 
   constructor(
     private tempValuesService: TempValuesService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.tempReservation.start_date =
-      this.tempValuesService.getReservation().start_date;
-    this.tempReservation.end_date =
-      this.tempValuesService.getReservation().end_date;
-    this.tempCustomer.numGuests =
-      this.tempValuesService.getCustomer().numGuests;
+    this.reservation = this.tempValuesService.getReservation();
+    this.customer = this.tempValuesService.getCustomer();
+    this.room = this.tempValuesService.getRoom();
     this.getRoomsByDates();
   }
 
@@ -37,14 +37,14 @@ export class BookingPageComponent implements OnInit {
   getRoomsByDates() {
     this.roomService
       .getRoomsByDates(
-        this.tempReservation.start_date,
-        this.tempReservation.end_date,
-        this.tempCustomer.numGuests
+        this.reservation.start_date,
+        this.reservation.end_date,
+        this.customer.numGuests
       )
       .subscribe((res) => {
         this.roomList = res;
-        console.log(this.roomList);
         this.roomList.map((room) => {
+          // Getting all the images by room type
           switch (room.type) {
             case 'Twin Penthouse Suite':
               room.img = '../../../assets/room_types/king-deluxe.jpg';
@@ -68,13 +68,16 @@ export class BookingPageComponent implements OnInit {
               room.img = '../../../assets/room_types/queen-premium.jpg';
               break;
           }
-
-          // if (room.type === 'Twin Penthouse Suite') {
-          //   room.img = '../../../assets/room_types/king-deluxe.jpg';
-          // } else if ((room.roomId = 1)) {
-          //   room.img = '../../../assets/room_types/king-penthouse.jpg';
-          // }
         });
       });
+  }
+
+  onSubmit(r: Room) {
+    // Set temp room to selected room
+    this.room = r;
+    this.tempValuesService.setRoom(r);
+
+    // Redirect to confirmation page:
+    this.router.navigate(['/confirmation']);
   }
 }
