@@ -46,6 +46,10 @@ export class ReservationsPageComponent implements OnInit {
       lastName: [''],
       email: [''],
       phoneNumber: [''],
+      numGuests: [''],
+      roomType: [''],
+      startDate: [''],
+      endDate: [''],
     });
   }
 
@@ -60,30 +64,40 @@ export class ReservationsPageComponent implements OnInit {
           .subscribe((results) => {
             this.customer = results;
             this.tempValuesService.setCustomer(this.customer);
-            this.editReservation(this.customer);
+            this.editReservation(this.customer, this.reservation);
           });
       });
     // this.router.navigate(['/reservations/change']);
   }
 
-  editReservation(customer: Customer) {
+  editReservation(customer: Customer, reservation: Reservation) {
     this.resDetails.controls['firstName'].setValue(customer.firstName);
     this.resDetails.controls['lastName'].setValue(customer.lastName);
     this.resDetails.controls['email'].setValue(customer.email);
     this.resDetails.controls['phoneNumber'].setValue(customer.phoneNumber);
+    this.resDetails.controls['numGuests'].setValue(customer.numGuests);
+    this.resDetails.controls['startDate'].setValue(reservation.startDate);
+    this.resDetails.controls['endDate'].setValue(reservation.endDate);
   }
 
   onSave() {
-    // Updating customer values
+    // Updating customer and reservation values
     this.customer.firstName = this.resDetails.value.firstName;
     this.customer.lastName = this.resDetails.value.lastName;
     this.customer.email = this.resDetails.value.email;
     this.customer.phoneNumber = this.resDetails.value.phoneNumber;
+    this.customer.numGuests = this.resDetails.value.numGuests;
+    this.reservation.startDate = this.resDetails.value.startDate;
+    this.reservation.endDate = this.resDetails.value.endDate;
 
     // Save updated customer to db
     this.customerService
       .saveCustomer(this.customer)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        console.log(res)
+        this.resService.updateReservation(this.reservation)
+        .subscribe();
+      });
   }
 
   onDelete() {
