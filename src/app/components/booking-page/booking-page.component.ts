@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { RoomService } from 'src/app/services/room.service';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
+import { Room } from 'src/models/room';
 
 @Component({
   selector: 'app-booking-page',

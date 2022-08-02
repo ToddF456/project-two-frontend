@@ -5,7 +5,6 @@ import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
 import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
-import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'booking-form',
@@ -20,8 +19,7 @@ export class BookingFormComponent implements OnInit {
 
   constructor(
     private tempValuesService: TempValuesService,
-    private router: Router,
-    private reservationService: ReservationService
+    private router: Router
   ) {}
 
   ngOnInit(): void {

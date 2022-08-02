@@ -12,7 +12,7 @@ import { BookingFormComponent } from './components/booking-form/booking-form.com
 import { BookingPageComponent } from './components/booking-page/booking-page.component';
 import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
-import { ReservationsModalComponent } from './components/reservations-modal/reservations-modal.component';
+import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ReservationsModalComponent } from './components/reservations-modal/rese
     BookingPageComponent,
     BookingFinalComponent,
     ReservationsPageComponent,
-    ReservationsModalComponent,
+    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,

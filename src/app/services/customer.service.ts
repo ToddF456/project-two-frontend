@@ -13,10 +13,8 @@ export class CustomerService {
     this.customerURL = 'http://localhost:8080/customers';
   }
 
-  getCustomer(customer: Customer): Observable<Customer> {
-    return this.http.get<Customer>(
-      `${this.customerURL}/${customer.customerId}`
-    );
+  getCustomer(id: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.customerURL}/${id}`);
   }
 
   saveCustomer(customer: Customer): Observable<Customer> {

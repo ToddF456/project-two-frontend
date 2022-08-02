@@ -12,39 +12,7 @@
         formControlName="resNumber"
       />
     </div>
-    <div class="mb-3">
-      <label for="resFirstName" class="form-label">First Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="resFirstName"
-        formControlName="resFirstName"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="resLastName" class="form-label">Last Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="resLastName"
-        formControlName="resLastName"
-      />
-    </div>
 
-    <button
-      type="submit"
-      class="btn btn-warning"
-      data-bs-toggle="modal"
-      data-bs-target="#reservationsModal"
-    >
-      Submit
-    </button>
+    <button type="submit" class="btn btn-warning">Submit</button>
   </form>
 </div>
-
-<!-- Modal -->
-<reservations-modal
-  [reservation_number]="reservation_number"
-  [reservation_firstName]="reservation_firstName"
-  [reservation_lastName]="reservation_lastName"
-></reservations-modal>
