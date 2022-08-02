@@ -37,8 +37,9 @@ export class BookingFormComponent implements OnInit {
     // Prepare temp reservation with new start date / end date / confirmation number:
     this.reservation.startDate = this.bookingForm.value.startDate;
     this.reservation.endDate = this.bookingForm.value.endDate;
-    this.reservation.confirmationNumber =
-      Math.floor(1000 + Math.random() * 9000) + this.reservation.reservationId;
+    this.reservation.confirmationNumber = Math.floor(
+      1000 + Math.random() * 9000
+    );
 
     // Prepare temp customer with new number of guests:
     this.customer.numGuests = this.bookingForm.value.numGuests;

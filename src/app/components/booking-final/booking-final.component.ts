@@ -68,14 +68,15 @@ export class BookingFinalComponent implements OnInit {
 
     // Preparing reservation to be saved in the db
     this.reservation.roomId = this.room.roomId;
-
+    console.log(this.customer);
+    console.log(this.reservation);
     // Save customer to db
     await this.customerService.saveCustomer(this.customer).subscribe((res) => {
       this.reservation.customerId = res.customerId;
-      console.log(this.reservation);
-      // this.reservationService
-      //   .saveReservation(this.reservation)
-      //   .subscribe((result) => console.log(result));
+      console.log(res);
+      this.reservationService
+        .saveReservation(this.reservation)
+        .subscribe((result) => console.log(result));
     });
   }
 }

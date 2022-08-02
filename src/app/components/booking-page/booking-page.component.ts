@@ -28,6 +28,8 @@ export class BookingPageComponent implements OnInit {
     this.customer = this.tempValuesService.getCustomer();
     this.room = this.tempValuesService.getRoom();
     this.getRoomsByDates();
+    console.log(this.customer);
+    console.log(this.reservation);
   }
 
   getAllRooms() {
