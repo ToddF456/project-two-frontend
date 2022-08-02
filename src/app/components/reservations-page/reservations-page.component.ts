@@ -13,6 +13,8 @@ import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import { RoomService } from 'src/app/services/room.service';
+import { Room } from 'src/models/room';
 
 @Component({
   selector: 'reservations-page',
@@ -24,13 +26,14 @@ export class ReservationsPageComponent implements OnInit {
   resDetails!: FormGroup;
   reservation!: Reservation;
   customer: Customer = new Customer();
+  roomList :Room[] = [];
 
   constructor(
     private resService: ReservationService,
     private customerService: CustomerService,
+    private roomService: RoomService,
     private tempValuesService: TempValuesService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +70,7 @@ export class ReservationsPageComponent implements OnInit {
             this.customer = results;
             this.tempValuesService.setCustomer(this.customer);
             this.editReservation(this.customer, this.reservation);
+            this.roomService.getAllRooms().subscribe( resp => this.roomList = resp);
           });
       });
     // this.router.navigate(['/reservations/change']);
@@ -80,6 +84,7 @@ export class ReservationsPageComponent implements OnInit {
     this.resDetails.controls['numGuests'].setValue(customer.numGuests);
     this.resDetails.controls['startDate'].setValue(reservation.startDate);
     this.resDetails.controls['endDate'].setValue(reservation.endDate);
+    this.resDetails.controls['roomType'].setValue(reservation.roomId);
   }
 
   onSave() {
@@ -91,7 +96,7 @@ export class ReservationsPageComponent implements OnInit {
     this.customer.numGuests = this.resDetails.value.numGuests;
     this.reservation.startDate = this.resDetails.value.startDate;
     this.reservation.endDate = this.resDetails.value.endDate;
-
+    this.reservation.roomId = this.resDetails.value.roomType;
     // Save updated customer to db
     this.customerService
       .saveCustomer(this.customer)
