@@ -11,6 +11,8 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'reservations-page',
@@ -96,7 +98,14 @@ export class ReservationsPageComponent implements OnInit {
       .subscribe((res) => {
         console.log(res)
         this.resService.updateReservation(this.reservation)
-        .subscribe();
+        .subscribe( {
+          next: (resp) => {
+            alert("Sucess!");
+          }, 
+          error: (err) => {
+            alert("Room is not available")
+          }
+        });
       });
   }
 
