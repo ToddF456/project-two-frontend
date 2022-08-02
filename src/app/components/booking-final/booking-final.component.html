@@ -17,6 +17,8 @@
               id="firstNameInput"
               formControlName="first_name"
             />
+            <div *ngIf ="bookingModal.get('first_name')?.invalid && bookingModal.get('first_name')?.touched"></div>
+            <small *ngIf="bookingModal.get('first_name')?.errors?.['required']" class="text-danger">First name is required</small>
           </div>
 
           <!-- Last Name -->
@@ -28,6 +30,8 @@
               id="lastNameInput"
               formControlName="last_name"
             />
+            <div *ngIf ="bookingModal.get('last_name')?.invalid && bookingModal.get('last_name')?.touched"></div>
+            <small *ngIf="bookingModal.get('last_name')?.errors?.['required']" class="text-danger">Last name is required</small>
           </div>
 
           <!-- Email -->
@@ -39,6 +43,8 @@
               id="emailInput"
               formControlName="email"
             />
+            <div *ngIf ="bookingModal.get('email')?.invalid && bookingModal.get('email')?.touched"></div>
+            <small *ngIf="bookingModal.get('email')?.errors?.['required']" class="text-danger">Email is required</small>
           </div>
 
           <!-- Phone Number -->
@@ -50,9 +56,11 @@
               id="phoneInput"
               formControlName="phone"
             />
+            <div *ngIf ="bookingModal.get('phone')?.invalid && bookingModal.get('phone')?.touched"></div>
+            <small *ngIf="bookingModal.get('phone')?.errors?.['required']" class="text-danger">Phone # is required</small>
           </div>
         </div>
-        <button type="submit" class="btn btn-warning">Submit</button>
+        <button [disabled]="bookingModal.invalid" type="submit" class="btn btn-warning">Submit</button>
         <button type="button" class="btn btn-outline-warning">Cancel</button>
       </form>
     </div>
