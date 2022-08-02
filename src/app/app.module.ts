@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -12,7 +13,6 @@ import { BookingFormComponent } from './components/booking-form/booking-form.com
 import { BookingPageComponent } from './components/booking-page/booking-page.component';
 import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
-import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     BookingPageComponent,
     BookingFinalComponent,
     ReservationsPageComponent,
-    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +30,7 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { TempValuesService } from 'src/app/services/temp-values.service';
@@ -14,6 +19,7 @@ import { Customer } from 'src/models/customer';
 })
 export class ReservationsPageComponent implements OnInit {
   resForm: FormGroup = new FormGroup({});
+  resDetails!: FormGroup;
   reservation!: Reservation;
   customer: Customer = new Customer();
 
@@ -21,7 +27,8 @@ export class ReservationsPageComponent implements OnInit {
     private resService: ReservationService,
     private customerService: CustomerService,
     private tempValuesService: TempValuesService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +38,14 @@ export class ReservationsPageComponent implements OnInit {
         Validators.required,
         Validators.min(4),
       ]),
+    });
+
+    // Creating FormBuilder
+    this.resDetails = this.formBuilder.group({
+      firstName: [''],
+      lastName: [''],
+      email: [''],
+      phoneNumber: [''],
     });
   }
 
@@ -45,9 +60,29 @@ export class ReservationsPageComponent implements OnInit {
           .subscribe((results) => {
             this.customer = results;
             this.tempValuesService.setCustomer(this.customer);
-            console.log(this.customer);
+            this.editReservation(this.customer);
           });
       });
-    this.router.navigate(['/reservations/change']);
+    // this.router.navigate(['/reservations/change']);
+  }
+
+  editReservation(customer: Customer) {
+    this.resDetails.controls['firstName'].setValue(customer.firstName);
+    this.resDetails.controls['lastName'].setValue(customer.lastName);
+    this.resDetails.controls['email'].setValue(customer.email);
+    this.resDetails.controls['phoneNumber'].setValue(customer.phoneNumber);
+  }
+
+  onSave() {
+    // Updating customer values
+    this.customer.firstName = this.resDetails.value.firstName;
+    this.customer.lastName = this.resDetails.value.lastName;
+    this.customer.email = this.resDetails.value.email;
+    this.customer.phoneNumber = this.resDetails.value.phoneNumber;
+
+    // Save updated customer to db
+    this.customerService
+      .saveCustomer(this.customer)
+      .subscribe((res) => console.log(res));
   }
 }
