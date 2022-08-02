@@ -23,6 +23,10 @@ export class ReservationService {
     return this.http.post<Reservation>(this.reservationURL, reservation);
   }
 
+  updateReservation(reservation: Reservation): Observable<Reservation> {
+    return this.http.put<Reservation>(this.reservationURL, reservation);
+  }
+
   deleteReservation(res: Reservation): Observable<Reservation> {
     return this.http.delete<Reservation>(
       `${this.reservationURL}/${res.reservationId}`

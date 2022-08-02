@@ -50,11 +50,11 @@
         <!-- Form starts here -->
         <!-- ---------------------------- -->
         <div class="container">
+          <form [formGroup]="resDetails">
           <div class="row">
             <div class="col-6">
               <!-- Personal Info -->
               <h1 class="display-6">Your Information:</h1>
-              <form [formGroup]="resDetails">
                 <div class="mb-3">
                   <label for="firstNmeInput" class="form-label"
                     >First Name</label
@@ -99,7 +99,6 @@
                     formControlName="phoneNumber"
                   />
                 </div>
-              </form>
             </div>
 
             <div class="col-6">
@@ -114,7 +113,7 @@
                   type="text"
                   class="form-control"
                   id="resInfoFormControlInput1"
-                  placeholder="room type"
+                  formControlName="roomType"
                 />
               </div>
               <div class="mb-3">
@@ -125,7 +124,7 @@
                   type="date"
                   class="form-control"
                   id="resInfoFormControlInput2"
-                  placeholder="from date"
+                  formControlName="startDate"
                 />
               </div>
               <div class="mb-3">
@@ -136,7 +135,7 @@
                   type="date"
                   class="form-control"
                   id="resInfoFormControlInput3"
-                  placeholder="to date"
+                  formControlName="endDate"
                 />
               </div>
               <div class="mb-3">
@@ -147,13 +146,12 @@
                   type="number"
                   class="form-control"
                   id="resInfoFormControlInput3"
-                  placeholder="guests #"
+                  formControlName="numGuests"
                 />
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" (click)="onSave()">
           Save changes
