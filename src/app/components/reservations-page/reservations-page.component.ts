@@ -72,4 +72,17 @@ export class ReservationsPageComponent implements OnInit {
     this.resDetails.controls['email'].setValue(customer.email);
     this.resDetails.controls['phoneNumber'].setValue(customer.phoneNumber);
   }
+
+  onSave() {
+    // Updating customer values
+    this.customer.firstName = this.resDetails.value.firstName;
+    this.customer.lastName = this.resDetails.value.lastName;
+    this.customer.email = this.resDetails.value.email;
+    this.customer.phoneNumber = this.resDetails.value.phoneNumber;
+
+    // Save updated customer to db
+    this.customerService
+      .saveCustomer(this.customer)
+      .subscribe((res) => console.log(res));
+  }
 }
