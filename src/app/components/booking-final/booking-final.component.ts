@@ -29,15 +29,11 @@ export class BookingFinalComponent implements OnInit {
   ngOnInit(): void {
     // Create formGroup
     this.bookingModal = new FormGroup({
-      first_name: new FormControl(null, Validators.required),
-      last_name: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      phone: new FormControl(null, Validators.required),
-      num_guests: new FormControl(null, [
-        Validators.required,
-        Validators.min(1),
-        Validators.max(10),
-      ]),
+      first_name: new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
+      last_name: new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      phone: new FormControl(null, [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]),
+      num_guests: new FormControl,
     });
     // Get temp customer, reservation and room
     this.customer = this.tempValuesService.getCustomer();
