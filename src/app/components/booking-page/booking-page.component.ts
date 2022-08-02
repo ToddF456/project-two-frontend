@@ -28,8 +28,6 @@ export class BookingPageComponent implements OnInit {
     this.tempCustomer.numGuests =
       this.tempValuesService.getCustomer().numGuests;
     this.getRoomsByDates();
-    console.log(this.tempReservation);
-    console.log(this.tempCustomer);
   }
 
   getAllRooms() {
@@ -43,6 +41,40 @@ export class BookingPageComponent implements OnInit {
         this.tempReservation.end_date,
         this.tempCustomer.numGuests
       )
-      .subscribe((res) => (this.roomList = res));
+      .subscribe((res) => {
+        this.roomList = res;
+        console.log(this.roomList);
+        this.roomList.map((room) => {
+          switch (room.type) {
+            case 'Twin Penthouse Suite':
+              room.img = '../../../assets/room_types/king-deluxe.jpg';
+              break;
+            case 'Full Premium Suite':
+              room.img = '../../../assets/room_types/king-penthouse.jpg';
+              break;
+            case 'King Premium Suite':
+              room.img = '../../../assets/room_types/king-premium.jpg';
+              break;
+            case 'Queen Presidential Suite':
+              room.img = '../../../assets/room_types/king-presidential.jpg';
+              break;
+            case 'King Presidential Suite':
+              room.img = '../../../assets/room_types/king-presidential.jpg';
+              break;
+            case 'King Penthouse Suite':
+              room.img = '../../../assets/room_types/queen-deluxe.jpg';
+              break;
+            default:
+              room.img = '../../../assets/room_types/queen-premium.jpg';
+              break;
+          }
+
+          // if (room.type === 'Twin Penthouse Suite') {
+          //   room.img = '../../../assets/room_types/king-deluxe.jpg';
+          // } else if ((room.roomId = 1)) {
+          //   room.img = '../../../assets/room_types/king-penthouse.jpg';
+          // }
+        });
+      });
   }
 }

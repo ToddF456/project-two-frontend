@@ -93,11 +93,24 @@
               <!-- Reservation Data -->
               <div class="col-6">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Check-in:</li>
-                  <li class="list-group-item">Check-out:</li>
-                  <li class="list-group-item">Room:</li>
-                  <li class="list-group-item">Number of Guests:</li>
-                  <li class="list-group-item"><strong>Grand Total:</strong></li>
+                  <li class="list-group-item">
+                    <strong>Check-in: </strong> <br />
+                    {{ reservation.start_date | date: "fullDate" }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Check-out: </strong> <br />
+                    {{ reservation.end_date | date: "fullDate" }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Room: </strong>
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Number of Guests: </strong> <br />
+                    {{ customer.numGuests }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Grand Total:</strong> <br />
+                  </li>
                 </ul>
               </div>
             </div>

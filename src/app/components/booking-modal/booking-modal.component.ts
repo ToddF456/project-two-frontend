@@ -39,8 +39,8 @@ export class BookingModalComponent implements OnInit {
     this.customer.lastName = this.bookingModal.value.last_name;
     this.customer.email = this.bookingModal.value.email;
     this.customer.phoneNumber = this.bookingModal.value.phone;
-    this.customerService
-      .saveCustomer(this.customer)
-      .subscribe((res) => console.log(res));
+    // this.customerService
+    //   .saveCustomer(this.customer)
+    //   .subscribe((res) => console.log(res));
   }
 }
