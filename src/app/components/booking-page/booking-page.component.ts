@@ -37,8 +37,8 @@ export class BookingPageComponent implements OnInit {
   getRoomsByDates() {
     this.roomService
       .getRoomsByDates(
-        this.reservation.start_date,
-        this.reservation.end_date,
+        this.reservation.startDate,
+        this.reservation.endDate,
         this.customer.numGuests
       )
       .subscribe((res) => {

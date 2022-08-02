@@ -10,12 +10,12 @@ export class CustomerService {
   customerURL: string;
 
   constructor(private http: HttpClient) {
-    this.customerURL = 'http://localhost:8080/customers/';
+    this.customerURL = 'http://localhost:8080/customers';
   }
 
   getCustomer(customer: Customer): Observable<Customer> {
     return this.http.get<Customer>(
-      `${this.customerURL}/${customer.firstName}/${customer.lastName}`
+      `${this.customerURL}/${customer.customerId}`
     );
   }
 

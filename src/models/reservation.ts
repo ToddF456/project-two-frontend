@@ -1,8 +1,8 @@
 export class Reservation {
-  res_id: number = 0;
-  room_id: number = 0;
-  customer_id: number = 0;
-  start_date: string = '';
-  end_date: string = '';
+  reservationId!: number;
+  roomId: number = 0;
+  customerId: number = 0;
+  startDate: string = '';
+  endDate: string = '';
   confirmationNumber: number = 0;
 }

@@ -6,6 +6,7 @@ import { Customer } from 'src/models/customer';
 import { Reservation } from 'src/models/reservation';
 import { DateTime } from 'luxon';
 import { Room } from 'src/models/room';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-booking-final',
@@ -21,7 +22,8 @@ export class BookingFinalComponent implements OnInit {
 
   constructor(
     private tempValuesService: TempValuesService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private reservationService: ReservationService
   ) {}
 
   ngOnInit(): void {
@@ -44,8 +46,8 @@ export class BookingFinalComponent implements OnInit {
 
     // Calculate Grand Total
     let days = this.calculateDays(
-      this.reservation.start_date,
-      this.reservation.end_date
+      this.reservation.startDate,
+      this.reservation.endDate
     );
     this.grand_total = this.room.price * days;
   }
@@ -56,7 +58,8 @@ export class BookingFinalComponent implements OnInit {
     let duration = toDate.diff(fromDate, 'days');
     return duration.days;
   }
-  onSubmit() {
+
+  async onSubmit() {
     // Preparing customer to be saved in the db
     this.customer.firstName = this.bookingModal.value.first_name;
     this.customer.lastName = this.bookingModal.value.last_name;
@@ -64,14 +67,15 @@ export class BookingFinalComponent implements OnInit {
     this.customer.phoneNumber = this.bookingModal.value.phone;
 
     // Preparing reservation to be saved in the db
-    this.reservation.room_id = this.room.roomId;
+    this.reservation.roomId = this.room.roomId;
 
     // Save customer to db
-    // this.customerService
-    //   .saveCustomer(this.customer)
-    //   .subscribe((res) => console.log(res));
-
-    console.log(this.customer);
-    console.log(this.reservation);
+    await this.customerService.saveCustomer(this.customer).subscribe((res) => {
+      this.reservation.customerId = res.customerId;
+      console.log(this.reservation);
+      // this.reservationService
+      //   .saveReservation(this.reservation)
+      //   .subscribe((result) => console.log(result));
+    });
   }
 }
