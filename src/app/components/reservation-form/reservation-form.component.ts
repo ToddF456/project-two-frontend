@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormsModule } from '@angular/forms';
 import { CustomerService } from 'src/app/services/customer.service';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { Customer } from 'src/models/customer';
@@ -13,7 +13,7 @@ import { Reservation } from 'src/models/reservation';
 export class ReservationFormComponent implements OnInit {
   reservationForm: FormGroup = new FormGroup({});
   reservation!: Reservation;
-  customer: Customer = new Customer();
+  customer!: Customer;
 
   constructor(
     private customerService: CustomerService,
@@ -23,21 +23,21 @@ export class ReservationFormComponent implements OnInit {
   ngOnInit(): void {
     // Getting temp customer
     this.customer = this.tempValuesService.getCustomer();
+    console.log(this.customer);
 
     // Creating new FormGroup
-    this.reservationForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      phoneNumber: new FormControl(),
-    });
+    // this.reservationForm = new FormGroup({
+    //   firstName: new FormControl(),
+    //   lastName: new FormControl(),
+    //   email: new FormControl(),
+    //   phoneNumber: new FormControl(),
+    // });
   }
 
   onSubmit() {
-    this.customer.firstName = this.reservationForm.value.firstName;
-    this.customer.lastName = this.reservationForm.value.lastName;
-    this.customer.email = this.reservationForm.value.email;
-    this.customer.phoneNumber = this.reservationForm.value.phoneNumber;
-    console.log(this.customer);
+    // this.customer.firstName = this.reservationForm.value.firstName;
+    // this.customer.lastName = this.reservationForm.value.lastName;
+    // this.customer.email = this.reservationForm.value.email;
+    // this.customer.phoneNumber = this.reservationForm.value.phoneNumber;
   }
 }

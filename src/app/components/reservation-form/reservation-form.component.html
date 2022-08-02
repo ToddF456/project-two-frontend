@@ -5,14 +5,15 @@
     <div class="col-6">
       <!-- Personal Info -->
       <h1 class="display-6">Your Information:</h1>
-      <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+      <form>
         <div class="mb-3">
           <label for="firstNmeInput" class="form-label">First Name</label>
           <input
             type="text"
             class="form-control"
             id="firstNameInput"
-            formControlName="firstName"
+            value="{{ customer.firstName }}"
+            [(ngModel)]="customer.firstName"
           />
         </div>
         <div class="mb-3">
@@ -21,7 +22,8 @@
             type="text"
             class="form-control"
             id="lastNameInput"
-            formControlName="lastName"
+            value="{{ customer.lastName }}"
+            [(ngModel)]="customer.lastName"
           />
         </div>
         <div class="mb-3">
@@ -30,7 +32,8 @@
             type="email"
             class="form-control"
             id="emailInput"
-            formControlName="email"
+            value="{{ customer.email }}"
+            [(ngModel)]="customer.email"
           />
         </div>
         <div class="mb-3">
@@ -39,7 +42,8 @@
             type="text"
             class="form-control"
             id="phoneInput"
-            formControlName="phoneNumber"
+            value="{{ customer.phoneNumber }}"
+            [(ngModel)]="customer.phoneNumber"
           />
         </div>
       </form>
@@ -90,7 +94,9 @@
         />
       </div>
     </div>
-    <button type="submit" class="btn btn-warning">Save Changes</button>
+    <button type="submit" class="btn btn-warning" (click)="onSubmit()">
+      Save Changes
+    </button>
     <button
       type="button"
       class="btn btn-outline-warning"
