@@ -9,16 +9,20 @@
   <small class="h4 text-muted">Dates:</small>
   <div class="col-12">
     <input class="form-control" type="date" formControlName="startDate" />
-    <small *ngIf="bookingForm.get('startDate').invalid && bookingForm.get('startDate').touched" class="text-danger">Date is Required</small>
+    <div *ngIf ="bookingForm.get('startDate')?.invalid && bookingForm.get('startDate')?.touched"></div>
+    <small *ngIf="bookingForm.get('startDate')?.errors?.['required']" class="text-danger">Start date is required</small>
   </div>
   <div class="col-12">
     <input class="form-control" type="date" formControlName="endDate" />
+    <div *ngIf ="bookingForm.get('endDate')?.invalid && bookingForm.get('endDate')?.touched"></div>
+    <small *ngIf="bookingForm.get('endDate')?.errors?.['required']" class="text-danger">End date is required</small>
   </div>
 
   <!-- Number of Guests -->
 
   <small class="h4 text-muted">Guests:</small>
   <input
+    style="height: fit-content;"
     type="number"
     name="Guests"
     min="1"
@@ -27,9 +31,11 @@
     formControlName="numGuests"
   />
 
-
+  <div *ngIf ="bookingForm.get('numGuests')?.invalid && bookingForm.get('numGuests')?.touched"></div>
+  <small *ngIf="bookingForm.get('numGuests')?.errors?.['required']" class="text-danger">Guests are required</small>
+  <small *ngIf="bookingForm.get('numGuests')?.errors?.['min']" class="text-danger">At least 1 guest is required</small>
 
 
   <!-- Submitt Button -->
-  <button class="btn btn-outline-warning" type="submit">Search</button>
+  <button [disabled]="bookingForm.invalid" class="btn btn-outline-warning" type="submit">Search</button>
 </form>
