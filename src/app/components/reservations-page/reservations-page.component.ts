@@ -41,7 +41,9 @@ export class ReservationsPageComponent implements OnInit {
     this.resForm = new FormGroup({
       resNumber: new FormControl(null, [
         Validators.required,
-        Validators.min(4),
+        Validators.pattern('[0-9]+'),
+        Validators.minLength(5),
+        Validators.maxLength(5)
       ]),
     });
 
@@ -105,10 +107,10 @@ export class ReservationsPageComponent implements OnInit {
         this.resService.updateReservation(this.reservation)
         .subscribe( {
           next: (resp) => {
-            alert("Sucess!");
+            alert("Success! Your reservation has been changed.");
           }, 
           error: (err) => {
-            alert("Room is not available")
+            alert("This room is currently not available.")
           }
         });
       });

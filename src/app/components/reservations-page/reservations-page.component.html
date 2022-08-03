@@ -6,14 +6,20 @@
     <div class="mb-3">
       <label for="resNumber" class="form-label">Reservation Number</label>
       <input
-        type="number"
+        type="text"
         class="form-control"
         id="resNumber"
         formControlName="resNumber"
       />
+      <div *ngIf ="resForm.get('resNumber')?.invalid && resForm.get('resNumber')?.touched"></div>
+      <small *ngIf="resForm.get('resNumber')?.errors?.['required']" class="text-danger"></small>
+      <small *ngIf="resForm.get('resNumber')?.errors?.['pattern']" class="text-danger">Confirmation number can only be numbers</small>
+      <small *ngIf="resForm.get('resNumber')?.errors?.['minlength']" class="text-danger">Confirmation number is too short</small>
+      <small *ngIf="resForm.get('resNumber')?.errors?.['maxlength']" class="text-danger">Confirmation number is too long</small>
     </div>
 
     <button
+      [disabled]="resForm.invalid"
       type="submit"
       class="btn btn-warning"
       data-bs-toggle="modal"
