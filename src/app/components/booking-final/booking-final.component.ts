@@ -29,8 +29,8 @@ export class BookingFinalComponent implements OnInit {
   ngOnInit(): void {
     // Create formGroup
     this.bookingModal = new FormGroup({
-      first_name: new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
-      last_name: new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
+      first_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
+      last_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]),
       num_guests: new FormControl,

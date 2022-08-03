@@ -19,7 +19,7 @@
             />
             <div *ngIf ="bookingModal.get('first_name')?.invalid && bookingModal.get('first_name')?.touched"></div>
             <small *ngIf="bookingModal.get('first_name')?.errors?.['required']" class="text-danger">First name is required</small>
-            <small *ngIf="bookingModal.get('phone')?.errors?.['pattern']" class="text-danger">First name cannot contain numbers</small>
+            <small *ngIf="bookingModal.get('first_name')?.errors?.['pattern']" class="text-danger">First name cannot contain numbers</small>
           </div>
 
           <!-- Last Name -->
@@ -33,7 +33,7 @@
             />
             <div *ngIf ="bookingModal.get('last_name')?.invalid && bookingModal.get('last_name')?.touched"></div>
             <small *ngIf="bookingModal.get('last_name')?.errors?.['required']" class="text-danger">Last name is required</small>
-            <small *ngIf="bookingModal.get('phone')?.errors?.['pattern']" class="text-danger">Last name cannot contain numbers</small>
+            <small *ngIf="bookingModal.get('last_name')?.errors?.['pattern']" class="text-danger">Last name cannot contain numbers</small>
           </div>
 
           <!-- Email -->
