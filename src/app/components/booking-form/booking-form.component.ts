@@ -5,6 +5,7 @@ import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
 import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'booking-form',
@@ -29,8 +30,7 @@ export class BookingFormComponent implements OnInit {
       numGuests: new FormControl(null, [
         Validators.required,
         Validators.min(1),
-      ]),
-    });
+      ])},{validators:dateValidator});
   }
 
   onSubmit() {
@@ -54,4 +54,12 @@ export class BookingFormComponent implements OnInit {
     // Redirect to booking page:
     this.router.navigate(['/booking']);
   }
+
 }
+
+export const dateValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const start = control.get('startDate');
+  const end = control.get('endDate');  
+  return start?.value !== null && end?.value !== null && start?.value < end?.value 
+  ? null :{ dateValid:true };
+    }

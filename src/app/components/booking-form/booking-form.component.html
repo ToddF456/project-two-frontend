@@ -11,11 +11,13 @@
     <input class="form-control" type="date" formControlName="startDate" />
     <div *ngIf ="bookingForm.get('startDate')?.invalid && bookingForm.get('startDate')?.touched"></div>
     <small *ngIf="bookingForm.get('startDate')?.errors?.['required']" class="text-danger"></small>
+    <small *ngIf="bookingForm.get('startDate')?.errors?.['validDate']" class="text-danger"></small>
   </div>
   <div class="col-12">
     <input class="form-control" type="date" formControlName="endDate" />
     <div *ngIf ="bookingForm.get('endDate')?.invalid && bookingForm.get('endDate')?.touched"></div>
     <small *ngIf="bookingForm.get('endDate')?.errors?.['required']" class="text-danger"></small>
+    <small *ngIf="bookingForm.get('endDate')?.errors?.['validDate']" class="text-danger"></small>
   </div>
 
   <!-- Number of Guests -->
