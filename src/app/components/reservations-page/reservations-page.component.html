@@ -72,6 +72,9 @@
                     value="{{ customer.firstName }}"
                     formControlName="firstName"
                   />
+                  <div *ngIf ="resDetails.get('first_name')?.invalid && resDetails.get('first_name')?.touched"></div>
+                  <small *ngIf="resDetails.get('first_name')?.errors?.['required']" class="text-danger">First name is required</small>
+                  <small *ngIf="resDetails.get('first_name')?.errors?.['pattern']" class="text-danger">First name cannot contain numbers</small>
                 </div>
                 <div class="mb-3">
                   <label for="lastNameInput" class="form-label"
@@ -84,6 +87,9 @@
                     value="{{ customer.lastName }}"
                     formControlName="lastName"
                   />
+                  <div *ngIf ="resDetails.get('last_name')?.invalid && resDetails.get('last_name')?.touched"></div>
+                  <small *ngIf="resDetails.get('last_name')?.errors?.['required']" class="text-danger">Last name is required</small>
+                  <small *ngIf="resDetails.get('last_name')?.errors?.['pattern']" class="text-danger">Last name cannot contain numbers</small>
                 </div>
                 <div class="mb-3">
                   <label for="emailInput" class="form-label">Email</label>
@@ -94,6 +100,9 @@
                     value="{{ customer.email }}"
                     formControlName="email"
                   />
+                  <div *ngIf ="resDetails.get('email')?.invalid && resDetails.get('email')?.touched"></div>
+                  <small *ngIf="resDetails.get('email')?.errors?.['required']" class="text-danger">Email is required</small>
+                  <small *ngIf="resDetails.get('email')?.errors?.['email']" class="text-danger">Not a proper email format</small>
                 </div>
                 <div class="mb-3">
                   <label for="phoneInput" class="form-label">Phone</label>
@@ -104,6 +113,9 @@
                     value="{{ customer.phoneNumber }}"
                     formControlName="phoneNumber"
                   />
+                  <div *ngIf ="resDetails.get('phone')?.invalid && resDetails.get('phone')?.touched"></div>
+                  <small *ngIf="resDetails.get('phone')?.errors?.['required']" class="text-danger">Phone # is required</small>
+                  <small *ngIf="resDetails.get('phone')?.errors?.['pattern']" class="text-danger">Not a proper phone # format</small>
                 </div>
             </div>
 
@@ -132,6 +144,8 @@
                   id="resInfoFormControlInput2"
                   formControlName="startDate"
                 />
+                <div *ngIf ="resDetails.get('startDate')?.invalid && resDetails.get('startDate')?.touched"></div>
+                <small *ngIf="resDetails.get('startDate')?.errors?.['required']" class="text-danger"></small>
               </div>
               <div class="mb-3">
                 <label for="resInfoFormControlInput3" class="form-label"
@@ -143,6 +157,8 @@
                   id="resInfoFormControlInput3"
                   formControlName="endDate"
                 />
+                <div *ngIf ="resDetails.get('endDate')?.invalid && resDetails.get('endDate')?.touched"></div>
+                <small *ngIf="resDetails.get('endDate')?.errors?.['required']" class="text-danger"></small>
               </div>
               <div class="mb-3">
                 <label for="resInfoFormControlInput4" class="form-label"
@@ -154,12 +170,15 @@
                   id="resInfoFormControlInput3"
                   formControlName="numGuests"
                 />
+                <div *ngIf ="resDetails.get('numGuests')?.invalid && resDetails.get('numGuests')?.touched"></div>
+                <small *ngIf="resDetails.get('numGuests')?.errors?.['required']" class="text-danger"></small>
+                <small *ngIf="resDetails.get('numGuests')?.errors?.['min']" class="text-danger">At least 1 guest is required</small>
               </div>
             </div>
           </div>
           </form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" (click)="onSave()">
+        <button [disabled]="resDetails.invalid" type="button" class="btn btn-warning" (click)="onSave()">
           Save changes
         </button>
         <button

@@ -49,14 +49,14 @@ export class ReservationsPageComponent implements OnInit {
 
     // Creating FormBuilder
     this.resDetails = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      phoneNumber: [''],
-      numGuests: [''],
+      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]],
+      numGuests: ['', [Validators.required, Validators.min(1)]],
       roomType: [''],
-      startDate: [''],
-      endDate: [''],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
     });
   }
 
