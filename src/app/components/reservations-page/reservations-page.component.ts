@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
 import { Room } from 'src/models/room';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'reservations-page',
@@ -57,7 +58,7 @@ export class ReservationsPageComponent implements OnInit {
       roomType: [''],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
-    });
+    }, {validator: dateValidator});
   }
 
   onSubmit() {
@@ -122,3 +123,10 @@ export class ReservationsPageComponent implements OnInit {
     });
   }
 }
+
+export const dateValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const start = control.get('startDate');
+  const end = control.get('endDate');  
+  return start?.value !== null && end?.value !== null && start?.value < end?.value 
+  ? null :{ dateValid:true };
+    }

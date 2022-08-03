@@ -146,6 +146,7 @@
                 />
                 <div *ngIf ="resDetails.get('startDate')?.invalid && resDetails.get('startDate')?.touched"></div>
                 <small *ngIf="resDetails.get('startDate')?.errors?.['required']" class="text-danger"></small>
+                <small *ngIf="resDetails.get('startDate')?.errors?.['validDate']" class="text-danger"></small>
               </div>
               <div class="mb-3">
                 <label for="resInfoFormControlInput3" class="form-label"
@@ -159,6 +160,7 @@
                 />
                 <div *ngIf ="resDetails.get('endDate')?.invalid && resDetails.get('endDate')?.touched"></div>
                 <small *ngIf="resDetails.get('endDate')?.errors?.['required']" class="text-danger"></small>
+                <small *ngIf="resDetails.get('endDate')?.errors?.['validDate']" class="text-danger"></small>
               </div>
               <div class="mb-3">
                 <label for="resInfoFormControlInput4" class="form-label"
