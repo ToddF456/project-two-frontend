@@ -6,6 +6,7 @@ import { Customer } from 'src/models/customer';
 import { Room } from 'src/models/room';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'booking-form',
@@ -17,7 +18,9 @@ export class BookingFormComponent implements OnInit {
   reservation: Reservation = new Reservation();
   customer: Customer = new Customer();
   room: Room = new Room();
-
+  submitted = false;
+  updated: Subject<void> = new Subject<void>();
+  
   constructor(
     private tempValuesService: TempValuesService,
     private router: Router
@@ -51,8 +54,11 @@ export class BookingFormComponent implements OnInit {
     // Save temp room:
     this.tempValuesService.setRoom(this.room);
 
-    // Redirect to booking page:
-    this.router.navigate(['/booking']);
+    // show booking page:
+    this.submitted = true;
+
+    // update booking page
+    this.updated.next();
   }
 
 }

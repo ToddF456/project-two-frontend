@@ -41,3 +41,7 @@
   <!-- Submitt Button -->
   <button [disabled]="bookingForm.invalid" class="btn btn-outline-warning" type="submit">Search</button>
 </form>
+
+
+<app-photo-carousel *ngIf="!submitted"></app-photo-carousel>
+<app-booking-page *ngIf="submitted" [updatePage]="updated.asObservable()"></app-booking-page>

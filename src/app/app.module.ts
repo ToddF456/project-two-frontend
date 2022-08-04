@@ -14,6 +14,7 @@ import { BookingPageComponent } from './components/booking-page/booking-page.com
 import { BookingFinalComponent } from './components/booking-final/booking-final.component';
 import { ReservationsPageComponent } from './components/reservations-page/reservations-page.component';
 import { NoRoomsAvailComponent } from './components/no-rooms-avail/no-rooms-avail.component';
+import { PhotoCarouselComponent } from './components/photo-carousel/photo-carousel.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NoRoomsAvailComponent } from './components/no-rooms-avail/no-rooms-avai
     BookingFinalComponent,
     ReservationsPageComponent,
     NoRoomsAvailComponent,
+    PhotoCarouselComponent,
   ],
   imports: [
     BrowserModule,
