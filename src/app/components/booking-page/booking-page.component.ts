@@ -18,6 +18,7 @@ export class BookingPageComponent implements OnInit {
   customer!: Customer;
   room!: Room;
   @Input() updatePage: Observable<void> = new Observable();
+  notAvailable = false;
 
   constructor(
     private tempValuesService: TempValuesService,
@@ -48,9 +49,10 @@ export class BookingPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this.roomList = res;
-        // if (this.roomList.length === 0) {
+        if (this.roomList.length === 0) {
         //   this.router.navigate(['/reservations/no-vacancy']);
-        // }
+          this.notAvailable = true;
+        }
         this.roomList.map((room) => {
           // Getting all the images by room type
           switch (room.type) {
