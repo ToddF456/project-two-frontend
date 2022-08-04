@@ -30,6 +30,44 @@
   </form>
 </div>
 
+<!-- Cancel Reservation Confirmation Modal -->
+<div
+  class="modal fade"
+  id="confirmationModal"
+  tabindex="-1"
+  aria-labelledby="confirmationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">
+          Reservation Cancelation
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <h1 class="display-6">
+          Do you really want to cancel your reservation?
+        </h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="onDelete()">
+          Yes! Cancel My Reservation
+        </button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+          No! I Changed My Mind
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Reservation Change Modal -->
 <div
   class="modal fade"
@@ -193,44 +231,6 @@
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Back
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Cancel Reservation Confirmation Modal -->
-<div
-  class="modal fade"
-  id="confirmationModal"
-  tabindex="-1"
-  aria-labelledby="confirmationModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmationModalLabel">
-          Reservation Cancelation
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body text-center">
-        <h1 class="display-6">
-          Do you really want to cancel your reservation?
-        </h1>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="onDelete()">
-          Yes! Cancel My Reservation
-        </button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-          No! I Changed My Mind
         </button>
       </div>
     </div>
