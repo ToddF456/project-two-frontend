@@ -17,9 +17,22 @@
               id="firstNameInput"
               formControlName="first_name"
             />
-            <div *ngIf ="bookingModal.get('first_name')?.invalid && bookingModal.get('first_name')?.touched"></div>
-            <small *ngIf="bookingModal.get('first_name')?.errors?.['required']" class="text-danger">First name is required</small>
-            <small *ngIf="bookingModal.get('first_name')?.errors?.['pattern']" class="text-danger">First name cannot contain numbers</small>
+            <div
+              *ngIf="
+                bookingModal.get('first_name')?.invalid &&
+                bookingModal.get('first_name')?.touched
+              "
+            ></div>
+            <small
+              *ngIf="bookingModal.get('first_name')?.errors?.['required']"
+              class="text-danger"
+              >First name is required</small
+            >
+            <small
+              *ngIf="bookingModal.get('first_name')?.errors?.['pattern']"
+              class="text-danger"
+              >First name cannot contain numbers</small
+            >
           </div>
 
           <!-- Last Name -->
@@ -31,9 +44,22 @@
               id="lastNameInput"
               formControlName="last_name"
             />
-            <div *ngIf ="bookingModal.get('last_name')?.invalid && bookingModal.get('last_name')?.touched"></div>
-            <small *ngIf="bookingModal.get('last_name')?.errors?.['required']" class="text-danger">Last name is required</small>
-            <small *ngIf="bookingModal.get('last_name')?.errors?.['pattern']" class="text-danger">Last name cannot contain numbers</small>
+            <div
+              *ngIf="
+                bookingModal.get('last_name')?.invalid &&
+                bookingModal.get('last_name')?.touched
+              "
+            ></div>
+            <small
+              *ngIf="bookingModal.get('last_name')?.errors?.['required']"
+              class="text-danger"
+              >Last name is required</small
+            >
+            <small
+              *ngIf="bookingModal.get('last_name')?.errors?.['pattern']"
+              class="text-danger"
+              >Last name cannot contain numbers</small
+            >
           </div>
 
           <!-- Email -->
@@ -45,9 +71,22 @@
               id="emailInput"
               formControlName="email"
             />
-            <div *ngIf ="bookingModal.get('email')?.invalid && bookingModal.get('email')?.touched"></div>
-            <small *ngIf="bookingModal.get('email')?.errors?.['required']" class="text-danger">Email is required</small>
-            <small *ngIf="bookingModal.get('email')?.errors?.['email']" class="text-danger">Not a proper email format</small>
+            <div
+              *ngIf="
+                bookingModal.get('email')?.invalid &&
+                bookingModal.get('email')?.touched
+              "
+            ></div>
+            <small
+              *ngIf="bookingModal.get('email')?.errors?.['required']"
+              class="text-danger"
+              >Email is required</small
+            >
+            <small
+              *ngIf="bookingModal.get('email')?.errors?.['email']"
+              class="text-danger"
+              >Not a proper email format</small
+            >
           </div>
 
           <!-- Phone Number -->
@@ -59,13 +98,33 @@
               id="phoneInput"
               formControlName="phone"
             />
-            <div *ngIf ="bookingModal.get('phone')?.invalid && bookingModal.get('phone')?.touched"></div>
-            <small *ngIf="bookingModal.get('phone')?.errors?.['required']" class="text-danger">Phone # is required</small>
-            <small *ngIf="bookingModal.get('phone')?.errors?.['pattern']" class="text-danger">Not a proper phone # format</small>
-
+            <div
+              *ngIf="
+                bookingModal.get('phone')?.invalid &&
+                bookingModal.get('phone')?.touched
+              "
+            ></div>
+            <small
+              *ngIf="bookingModal.get('phone')?.errors?.['required']"
+              class="text-danger"
+              >Phone # is required</small
+            >
+            <small
+              *ngIf="bookingModal.get('phone')?.errors?.['pattern']"
+              class="text-danger"
+              >Not a proper phone # format</small
+            >
           </div>
         </div>
-        <button [disabled]="bookingModal.invalid" class="btn btn-warning" type="submit">Submit</button>
+        <button
+          [disabled]="bookingModal.invalid"
+          class="btn btn-warning"
+          type="submit"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Submit
+        </button>
         <button type="button" class="btn btn-outline-warning">Cancel</button>
       </form>
     </div>
@@ -94,6 +153,49 @@
             ${{ grand_total }}.00
           </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Success!</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          routerLink="/home"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="display-6">Your Reservation is Ready.</h1>
+        <br />
+        <strong>Confirmation #: </strong>
+        <p>{{ reservation.confirmationNumber }}</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          data-bs-dismiss="modal"
+          routerLink="/home"
+        >
+          Close
+        </button>
       </div>
     </div>
   </div>
