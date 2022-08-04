@@ -23,20 +23,21 @@
   <!-- Number of Guests -->
 
   <small class="h4 text-muted">Guests:</small>
-  <input
-    style="height: fit-content;"
-    type="number"
-    name="Guests"
-    min="1"
-    max="10"
-    value="1"
-    formControlName="numGuests"
-  />
+  <div class="col-12">
+    <input
+      style="height: fit-content;"
+      type="number"
+      name="Guests"
+      min="1"
+      max="10"
+      value="1"
+      formControlName="numGuests"
+    />
 
-  <div *ngIf ="bookingForm.get('numGuests')?.invalid && bookingForm.get('numGuests')?.touched"></div>
-  <small *ngIf="bookingForm.get('numGuests')?.errors?.['required']" class="text-danger"></small>
-  <small *ngIf="bookingForm.get('numGuests')?.errors?.['min']" class="text-danger">At least 1 guest is required</small>
-
+    <div *ngIf ="bookingForm.get('numGuests')?.invalid && bookingForm.get('numGuests')?.touched"></div>
+    <small *ngIf="bookingForm.get('numGuests')?.errors?.['required']" class="text-danger"></small>
+    <small *ngIf="bookingForm.get('numGuests')?.errors?.['min']" class="text-danger"></small>
+  </div>
 
   <!-- Submitt Button -->
   <button [disabled]="bookingForm.invalid" class="btn btn-outline-warning" type="submit">Search</button>
