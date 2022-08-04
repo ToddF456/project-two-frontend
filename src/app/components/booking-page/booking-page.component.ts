@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { RoomService } from 'src/app/services/room.service';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
 import { Room } from 'src/models/room';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-booking-page',
@@ -16,6 +17,7 @@ export class BookingPageComponent implements OnInit {
   reservation!: Reservation;
   customer!: Customer;
   room!: Room;
+  @Input() updatePage: Observable<void> = new Observable();
 
   constructor(
     private tempValuesService: TempValuesService,
@@ -30,6 +32,7 @@ export class BookingPageComponent implements OnInit {
     this.getRoomsByDates();
     console.log(this.customer);
     console.log(this.reservation);
+    this.updatePage.subscribe(() => this.getRoomsByDates());
   }
 
   getAllRooms() {
@@ -45,9 +48,9 @@ export class BookingPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this.roomList = res;
-        if (this.roomList.length === 0) {
-          this.router.navigate(['/reservations/no-vacancy']);
-        }
+        // if (this.roomList.length === 0) {
+        //   this.router.navigate(['/reservations/no-vacancy']);
+        // }
         this.roomList.map((room) => {
           // Getting all the images by room type
           switch (room.type) {
