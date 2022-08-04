@@ -45,6 +45,9 @@ export class BookingPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this.roomList = res;
+        if (this.roomList.length === 0) {
+          this.router.navigate(['/reservations/no-vacancy']);
+        }
         this.roomList.map((room) => {
           // Getting all the images by room type
           switch (room.type) {

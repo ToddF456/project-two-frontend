@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -23,17 +24,29 @@ export class BookingFinalComponent implements OnInit {
   constructor(
     private tempValuesService: TempValuesService,
     private customerService: CustomerService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     // Create formGroup
     this.bookingModal = new FormGroup({
-      first_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
-      last_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
+      first_name: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+      ]),
+      last_name: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+      ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null, [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]),
-      num_guests: new FormControl,
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(
+          '^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'
+        ),
+      ]),
+      num_guests: new FormControl(),
     });
     // Get temp customer, reservation and room
     this.customer = this.tempValuesService.getCustomer();
@@ -72,7 +85,10 @@ export class BookingFinalComponent implements OnInit {
       console.log(res);
       this.reservationService
         .saveReservation(this.reservation)
-        .subscribe((result) => console.log(result));
+        .subscribe((result) => {
+          // this.router.navigate(['/home']);
+          console.log(result);
+        });
     });
   }
 }
