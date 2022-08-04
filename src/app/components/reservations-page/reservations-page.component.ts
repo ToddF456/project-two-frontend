@@ -27,7 +27,7 @@ export class ReservationsPageComponent implements OnInit {
   resDetails!: FormGroup;
   reservation!: Reservation;
   customer: Customer = new Customer();
-  roomList :Room[] = [];
+  roomList: Room[] = [];
 
   constructor(
     private resService: ReservationService,
@@ -44,21 +44,38 @@ export class ReservationsPageComponent implements OnInit {
         Validators.required,
         Validators.pattern('[0-9]+'),
         Validators.minLength(5),
-        Validators.maxLength(5)
+        Validators.maxLength(5),
       ]),
     });
 
     // Creating FormBuilder
-    this.resDetails = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]],
-      numGuests: ['', [Validators.required, Validators.min(1)]],
-      roomType: [''],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-    }, {validator: dateValidator});
+    this.resDetails = this.formBuilder.group(
+      {
+        firstName: [
+          '',
+          [Validators.required, Validators.pattern('^[a-zA-Z ]*$')],
+        ],
+        lastName: [
+          '',
+          [Validators.required, Validators.pattern('^[a-zA-Z ]*$')],
+        ],
+        email: ['', [Validators.required, Validators.email]],
+        phoneNumber: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              '^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'
+            ),
+          ],
+        ],
+        numGuests: ['', [Validators.required, Validators.min(1)]],
+        roomType: [''],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+      },
+      { validator: dateValidator }
+    );
   }
 
   onSubmit() {
@@ -73,7 +90,9 @@ export class ReservationsPageComponent implements OnInit {
             this.customer = results;
             this.tempValuesService.setCustomer(this.customer);
             this.editReservation(this.customer, this.reservation);
-            this.roomService.getAllRooms().subscribe( resp => this.roomList = resp);
+            this.roomService
+              .getAllRooms()
+              .subscribe((resp) => (this.roomList = resp));
           });
       });
     // this.router.navigate(['/reservations/change']);
@@ -101,20 +120,17 @@ export class ReservationsPageComponent implements OnInit {
     this.reservation.endDate = this.resDetails.value.endDate;
     this.reservation.roomId = this.resDetails.value.roomType;
     // Save updated customer to db
-    this.customerService
-      .saveCustomer(this.customer)
-      .subscribe((res) => {
-        console.log(res)
-        this.resService.updateReservation(this.reservation)
-        .subscribe( {
-          next: (resp) => {
-            alert("Success! Your reservation has been changed.");
-          }, 
-          error: (err) => {
-            alert("This room is currently not available.")
-          }
-        });
+    this.customerService.saveCustomer(this.customer).subscribe((res) => {
+      console.log(res);
+      this.resService.updateReservation(this.reservation).subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+        error: (err) => {
+          alert('This room is currently not available.');
+        },
       });
+    });
   }
 
   onDelete() {
@@ -124,9 +140,14 @@ export class ReservationsPageComponent implements OnInit {
   }
 }
 
-export const dateValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const dateValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
   const start = control.get('startDate');
-  const end = control.get('endDate');  
-  return start?.value !== null && end?.value !== null && start?.value < end?.value 
-  ? null :{ dateValid:true };
-    }
+  const end = control.get('endDate');
+  return start?.value !== null &&
+    end?.value !== null &&
+    start?.value < end?.value
+    ? null
+    : { dateValid: true };
+};
