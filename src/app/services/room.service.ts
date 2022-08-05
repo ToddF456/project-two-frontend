@@ -10,7 +10,7 @@ export class RoomService {
   roomURL: string;
 
   constructor(private http: HttpClient) {
-    this.roomURL = 'http://localhost:8080/rooms';
+    this.roomURL = 'http://leboutiquehotel-env.eba-8vkrn3gf.us-east-2.elasticbeanstalk.com/rooms';
   }
 
   getAllRooms(): Observable<Room[]> {

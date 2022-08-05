@@ -10,7 +10,7 @@ export class CustomerService {
   customerURL: string;
 
   constructor(private http: HttpClient) {
-    this.customerURL = 'http://localhost:8080/customers';
+    this.customerURL = 'http://leboutiquehotel-env.eba-8vkrn3gf.us-east-2.elasticbeanstalk.com/customers';
   }
 
   getCustomer(id: number): Observable<Customer> {

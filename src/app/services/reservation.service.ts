@@ -10,7 +10,7 @@ export class ReservationService {
   reservationURL: string;
 
   constructor(private http: HttpClient) {
-    this.reservationURL = 'http://localhost:8080/reservations';
+    this.reservationURL = 'http://leboutiquehotel-env.eba-8vkrn3gf.us-east-2.elasticbeanstalk.com/reservations';
   }
 
   getReservationByConfirmationNum(
