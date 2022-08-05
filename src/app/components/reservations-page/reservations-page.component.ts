@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,11 +10,11 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
 import { Room } from 'src/models/room';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'reservations-page',
@@ -30,13 +29,22 @@ export class ReservationsPageComponent implements OnInit {
   roomList: Room[] = [];
   show = false;
   autohide = true;
+  @ViewChild('reservationModal') reservationModal : any;
+  @ViewChild('cancelConfirmationModal') cancelConfirmationModal : any;
+  @ViewChild('successfulChangeModal') successfulChangeModal : any;
+  @ViewChild('successfulDeleteModal') successfulDeleteModal : any;
+  modalReference :any;
+  modalReference2 :any;
+  
+  
 
   constructor(
     private resService: ReservationService,
     private customerService: CustomerService,
     private roomService: RoomService,
     private tempValuesService: TempValuesService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +88,8 @@ export class ReservationsPageComponent implements OnInit {
     );
   }
 
+
+
   onSubmit() {
     this.resService
       .getReservationByConfirmationNum(this.resForm.value.resNumber)
@@ -98,57 +108,76 @@ export class ReservationsPageComponent implements OnInit {
             this.editReservation(this.customer, this.reservation);
             this.roomService
               .getAllRooms()
-              .subscribe((resp) => (this.roomList = resp));
+              .subscribe((resp) => {
+                this.roomList = resp
+                this.modalReference = this.modalService.open(this.reservationModal);
+              });
           });
       });
     // this.router.navigate(['/reservations/change']);
-  }
+    }
 
-  editReservation(customer: Customer, reservation: Reservation) {
-    this.resDetails.controls['firstName'].setValue(customer.firstName);
-    this.resDetails.controls['lastName'].setValue(customer.lastName);
-    this.resDetails.controls['email'].setValue(customer.email);
-    this.resDetails.controls['phoneNumber'].setValue(customer.phoneNumber);
-    this.resDetails.controls['numGuests'].setValue(customer.numGuests);
-    this.resDetails.controls['startDate'].setValue(reservation.startDate);
-    this.resDetails.controls['endDate'].setValue(reservation.endDate);
-    this.resDetails.controls['roomType'].setValue(reservation.roomId);
-  }
+    editReservation(customer: Customer, reservation: Reservation) {
+      this.resDetails.controls['firstName'].setValue(customer.firstName);
+      this.resDetails.controls['lastName'].setValue(customer.lastName);
+      this.resDetails.controls['email'].setValue(customer.email);
+      this.resDetails.controls['phoneNumber'].setValue(customer.phoneNumber);
+      this.resDetails.controls['numGuests'].setValue(customer.numGuests);
+      this.resDetails.controls['startDate'].setValue(reservation.startDate);
+      this.resDetails.controls['endDate'].setValue(reservation.endDate);
+      this.resDetails.controls['roomType'].setValue(reservation.roomId);
+    }
 
-  onSave() {
-    // Updating customer and reservation values
-    this.customer.firstName = this.resDetails.value.firstName;
-    this.customer.lastName = this.resDetails.value.lastName;
-    this.customer.email = this.resDetails.value.email;
-    this.customer.phoneNumber = this.resDetails.value.phoneNumber;
-    this.customer.numGuests = this.resDetails.value.numGuests;
-    this.reservation.startDate = this.resDetails.value.startDate;
-    this.reservation.endDate = this.resDetails.value.endDate;
-    this.reservation.roomId = this.resDetails.value.roomType;
-    // Save updated customer to db
-    this.customerService.saveCustomer(this.customer).subscribe((res) => {
-      console.log(res);
-      this.resService.updateReservation(this.reservation).subscribe({
-        next: (resp) => {
-          console.log(resp);
-        },
-        error: (err) => {
-          alert('This room is currently not available.');
-        },
+    close() {
+      this.modalReference.close();
+      this.modalReference2.close();
+    }
+
+    close2() {
+      this.modalReference2.close();
+    }
+
+    onSave() {
+      // Updating customer and reservation values
+      this.customer.firstName = this.resDetails.value.firstName;
+      this.customer.lastName = this.resDetails.value.lastName;
+      this.customer.email = this.resDetails.value.email;
+      this.customer.phoneNumber = this.resDetails.value.phoneNumber;
+      this.customer.numGuests = this.resDetails.value.numGuests;
+      this.reservation.startDate = this.resDetails.value.startDate;
+      this.reservation.endDate = this.resDetails.value.endDate;
+      this.reservation.roomId = this.resDetails.value.roomType;
+      // Save updated customer to db
+      this.customerService.saveCustomer(this.customer).subscribe((res) => {
+        console.log(res);
+        this.resService.updateReservation(this.reservation).subscribe({
+          next: (resp) => {
+            this.modalReference2 = this.modalService.open(this.successfulChangeModal);
+            console.log(resp);
+          },
+          error: (err) => {
+            alert('This room is currently not available.');
+          },
+        });
       });
-    });
-  }
+    }
 
-  onDelete() {
-    this.resService.deleteReservation(this.reservation).subscribe((res) => {
-      console.log(res);
-    });
+    openConfirmation() {
+      this.modalReference2 = this.modalService.open(this.cancelConfirmationModal);
+    }
+
+    onDelete() {
+      this.resService.deleteReservation(this.reservation).subscribe((res) => {
+        this.close2();
+        this.modalReference2 = this.modalService.open(this.successfulDeleteModal);
+        console.log(res);
+      });
+    }
   }
-}
 
 export const dateValidator: ValidatorFn = (
   control: AbstractControl
-): ValidationErrors | null => {
+  ): ValidationErrors | null => {
   const start = control.get('startDate');
   const end = control.get('endDate');
   return start?.value !== null &&
@@ -156,4 +185,8 @@ export const dateValidator: ValidatorFn = (
     start?.value < end?.value
     ? null
     : { dateValid: true };
-};
+  };
+
+
+
+
