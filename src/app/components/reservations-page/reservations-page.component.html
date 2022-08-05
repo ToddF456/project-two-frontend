@@ -49,402 +49,418 @@
   </form>
 </div>
 
-<!-- Cancel Reservation Confirmation Modal -->
-<div
-  class="modal fade"
-  id="confirmationModal"
-  tabindex="-1"
-  aria-labelledby="confirmationModalLabel"
-  aria-hidden="true"
+<!-- No Confirmation Number Found Toast -->
+<hr *ngIf="show" />
+<ngb-toast
+  *ngIf="show"
+  header="Wrong Confirmation Number"
+  [delay]="3000"
+  [autohide]="autohide"
+  (hide)="show = false; autohide = true"
+  [class.bg-warning]="!autohide"
 >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmationModalLabel">
-          Reservation Cancelation
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body text-center">
-        <h1 class="display-6">
-          Do you really want to cancel your reservation?
-        </h1>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="onDelete()"
-          data-bs-toggle="modal"
-          data-bs-target="#deleteSuccess"
-        >
-          Yes! Cancel My Reservation
-        </button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-          No! I Changed My Mind
-        </button>
+  <div *ngIf="autohide">This Confirmation Number is not Correct</div>
+
+  <!-- Cancel Reservation Confirmation Modal -->
+  <div
+    class="modal fade"
+    id="confirmationModal"
+    tabindex="-1"
+    aria-labelledby="confirmationModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">
+            Reservation Cancelation
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-center">
+          <h1 class="display-6">
+            Do you really want to cancel your reservation?
+          </h1>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onDelete()"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteSuccess"
+          >
+            Yes! Cancel My Reservation
+          </button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+            No! I Changed My Mind
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Reservation Change Modal -->
-<div
-  class="modal fade"
-  id="changeModal"
-  tabindex="-1"
-  aria-labelledby="changeModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Make Changes To Your Reservation
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <!-- ---------------------------- -->
-        <!-- Form starts here -->
-        <!-- ---------------------------- -->
-        <div class="container">
-          <form [formGroup]="resDetails">
-            <div class="row">
-              <div class="col-6">
-                <!-- Personal Info -->
-                <h1 class="display-6">Your Information:</h1>
-                <div class="mb-3">
-                  <label for="firstNmeInput" class="form-label"
-                    >First Name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="firstNameInput"
-                    value="{{ customer.firstName }}"
-                    formControlName="firstName"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('first_name')?.invalid &&
-                      resDetails.get('first_name')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('first_name')?.errors?.['required']"
-                    class="text-danger"
-                    >First name is required</small
-                  >
-                  <small
-                    *ngIf="resDetails.get('first_name')?.errors?.['pattern']"
-                    class="text-danger"
-                    >First name cannot contain numbers</small
-                  >
+  <!-- Reservation Change Modal -->
+  <div
+    class="modal fade"
+    id="changeModal"
+    tabindex="-1"
+    aria-labelledby="changeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Make Changes To Your Reservation
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- ---------------------------- -->
+          <!-- Form starts here -->
+          <!-- ---------------------------- -->
+          <div class="container">
+            <form [formGroup]="resDetails">
+              <div class="row">
+                <div class="col-6">
+                  <!-- Personal Info -->
+                  <h1 class="display-6">Your Information:</h1>
+                  <div class="mb-3">
+                    <label for="firstNmeInput" class="form-label"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="firstNameInput"
+                      value="{{ customer.firstName }}"
+                      formControlName="firstName"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('first_name')?.invalid &&
+                        resDetails.get('first_name')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('first_name')?.errors?.['required']"
+                      class="text-danger"
+                      >First name is required</small
+                    >
+                    <small
+                      *ngIf="resDetails.get('first_name')?.errors?.['pattern']"
+                      class="text-danger"
+                      >First name cannot contain numbers</small
+                    >
+                  </div>
+                  <div class="mb-3">
+                    <label for="lastNameInput" class="form-label"
+                      >Last Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastNameInput"
+                      value="{{ customer.lastName }}"
+                      formControlName="lastName"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('last_name')?.invalid &&
+                        resDetails.get('last_name')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('last_name')?.errors?.['required']"
+                      class="text-danger"
+                      >Last name is required</small
+                    >
+                    <small
+                      *ngIf="resDetails.get('last_name')?.errors?.['pattern']"
+                      class="text-danger"
+                      >Last name cannot contain numbers</small
+                    >
+                  </div>
+                  <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="emailInput"
+                      value="{{ customer.email }}"
+                      formControlName="email"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('email')?.invalid &&
+                        resDetails.get('email')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('email')?.errors?.['required']"
+                      class="text-danger"
+                      >Email is required</small
+                    >
+                    <small
+                      *ngIf="resDetails.get('email')?.errors?.['email']"
+                      class="text-danger"
+                      >Not a proper email format</small
+                    >
+                  </div>
+                  <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phoneInput"
+                      value="{{ customer.phoneNumber }}"
+                      formControlName="phoneNumber"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('phone')?.invalid &&
+                        resDetails.get('phone')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('phone')?.errors?.['required']"
+                      class="text-danger"
+                      >Phone # is required</small
+                    >
+                    <small
+                      *ngIf="resDetails.get('phone')?.errors?.['pattern']"
+                      class="text-danger"
+                      >Not a proper phone # format</small
+                    >
+                  </div>
                 </div>
-                <div class="mb-3">
-                  <label for="lastNameInput" class="form-label"
-                    >Last Name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="lastNameInput"
-                    value="{{ customer.lastName }}"
-                    formControlName="lastName"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('last_name')?.invalid &&
-                      resDetails.get('last_name')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('last_name')?.errors?.['required']"
-                    class="text-danger"
-                    >Last name is required</small
-                  >
-                  <small
-                    *ngIf="resDetails.get('last_name')?.errors?.['pattern']"
-                    class="text-danger"
-                    >Last name cannot contain numbers</small
-                  >
-                </div>
-                <div class="mb-3">
-                  <label for="emailInput" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="emailInput"
-                    value="{{ customer.email }}"
-                    formControlName="email"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('email')?.invalid &&
-                      resDetails.get('email')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('email')?.errors?.['required']"
-                    class="text-danger"
-                    >Email is required</small
-                  >
-                  <small
-                    *ngIf="resDetails.get('email')?.errors?.['email']"
-                    class="text-danger"
-                    >Not a proper email format</small
-                  >
-                </div>
-                <div class="mb-3">
-                  <label for="phoneInput" class="form-label">Phone</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="phoneInput"
-                    value="{{ customer.phoneNumber }}"
-                    formControlName="phoneNumber"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('phone')?.invalid &&
-                      resDetails.get('phone')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('phone')?.errors?.['required']"
-                    class="text-danger"
-                    >Phone # is required</small
-                  >
-                  <small
-                    *ngIf="resDetails.get('phone')?.errors?.['pattern']"
-                    class="text-danger"
-                    >Not a proper phone # format</small
-                  >
+
+                <div class="col-6">
+                  <!-- Reservation Info -->
+                  <h1 class="display-6">Your Reservation:</h1>
+
+                  <div class="mb-3">
+                    <label for="resInfoFormControlInput1" class="form-label"
+                      >Room Type</label
+                    >
+                    <select
+                      id="resInfoFormControlInput1"
+                      class="form-control"
+                      formControlName="roomType"
+                    >
+                      <option
+                        *ngFor="let room of roomList"
+                        [value]="room.roomId"
+                      >
+                        {{ room.type }}, {{ room.numBeds }} beds, ${{
+                          room.price
+                        }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="resInfoFormControlInput2" class="form-label"
+                      >From:</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="resInfoFormControlInput2"
+                      formControlName="startDate"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('startDate')?.invalid &&
+                        resDetails.get('startDate')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('startDate')?.errors?.['required']"
+                      class="text-danger"
+                    ></small>
+                    <small
+                      *ngIf="resDetails.get('startDate')?.errors?.['validDate']"
+                      class="text-danger"
+                    ></small>
+                  </div>
+                  <div class="mb-3">
+                    <label for="resInfoFormControlInput3" class="form-label"
+                      >To:</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="resInfoFormControlInput3"
+                      formControlName="endDate"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('endDate')?.invalid &&
+                        resDetails.get('endDate')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('endDate')?.errors?.['required']"
+                      class="text-danger"
+                    ></small>
+                    <small
+                      *ngIf="resDetails.get('endDate')?.errors?.['validDate']"
+                      class="text-danger"
+                    ></small>
+                  </div>
+                  <div class="mb-3">
+                    <label for="resInfoFormControlInput4" class="form-label"
+                      >Number of Guests</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="resInfoFormControlInput3"
+                      formControlName="numGuests"
+                    />
+                    <div
+                      *ngIf="
+                        resDetails.get('numGuests')?.invalid &&
+                        resDetails.get('numGuests')?.touched
+                      "
+                    ></div>
+                    <small
+                      *ngIf="resDetails.get('numGuests')?.errors?.['required']"
+                      class="text-danger"
+                    ></small>
+                    <small
+                      *ngIf="resDetails.get('numGuests')?.errors?.['min']"
+                      class="text-danger"
+                      >At least 1 guest is required</small
+                    >
+                  </div>
                 </div>
               </div>
-
-              <div class="col-6">
-                <!-- Reservation Info -->
-                <h1 class="display-6">Your Reservation:</h1>
-
-                <div class="mb-3">
-                  <label for="resInfoFormControlInput1" class="form-label"
-                    >Room Type</label
-                  >
-                  <select
-                    id="resInfoFormControlInput1"
-                    class="form-control"
-                    formControlName="roomType"
-                  >
-                    <option *ngFor="let room of roomList" [value]="room.roomId">
-                      {{ room.type }}, {{ room.numBeds }} beds, ${{
-                        room.price
-                      }}
-                    </option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="resInfoFormControlInput2" class="form-label"
-                    >From:</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="resInfoFormControlInput2"
-                    formControlName="startDate"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('startDate')?.invalid &&
-                      resDetails.get('startDate')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('startDate')?.errors?.['required']"
-                    class="text-danger"
-                  ></small>
-                  <small
-                    *ngIf="resDetails.get('startDate')?.errors?.['validDate']"
-                    class="text-danger"
-                  ></small>
-                </div>
-                <div class="mb-3">
-                  <label for="resInfoFormControlInput3" class="form-label"
-                    >To:</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="resInfoFormControlInput3"
-                    formControlName="endDate"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('endDate')?.invalid &&
-                      resDetails.get('endDate')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('endDate')?.errors?.['required']"
-                    class="text-danger"
-                  ></small>
-                  <small
-                    *ngIf="resDetails.get('endDate')?.errors?.['validDate']"
-                    class="text-danger"
-                  ></small>
-                </div>
-                <div class="mb-3">
-                  <label for="resInfoFormControlInput4" class="form-label"
-                    >Number of Guests</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="resInfoFormControlInput3"
-                    formControlName="numGuests"
-                  />
-                  <div
-                    *ngIf="
-                      resDetails.get('numGuests')?.invalid &&
-                      resDetails.get('numGuests')?.touched
-                    "
-                  ></div>
-                  <small
-                    *ngIf="resDetails.get('numGuests')?.errors?.['required']"
-                    class="text-danger"
-                  ></small>
-                  <small
-                    *ngIf="resDetails.get('numGuests')?.errors?.['min']"
-                    class="text-danger"
-                    >At least 1 guest is required</small
-                  >
-                </div>
-              </div>
+            </form>
+            <div class="modal-footer">
+              <!-- Buttons -->
+              <button
+                [disabled]="resDetails.invalid"
+                type="button"
+                class="btn btn-warning"
+                (click)="onSave()"
+                data-bs-toggle="modal"
+                data-bs-target="#editSuccess"
+              >
+                Save changes
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmationModal"
+              >
+                Cancel my Reservation
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Back
+              </button>
             </div>
-          </form>
-          <div class="modal-footer">
-            <!-- Buttons -->
-            <button
-              [disabled]="resDetails.invalid"
-              type="button"
-              class="btn btn-warning"
-              (click)="onSave()"
-              data-bs-toggle="modal"
-              data-bs-target="#editSuccess"
-            >
-              Save changes
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmationModal"
-            >
-              Cancel my Reservation
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Back
-            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Reservation Changed Successfuly -->
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="editSuccess"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="editSuccessLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editSuccessLabel">Success!</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          routerLink="/home"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <h1 class="display-6">Your Reservation was Changed.</h1>
-        <br />
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-warning"
-          data-bs-dismiss="modal"
-          routerLink="/home"
-        >
-          Close
-        </button>
+  <!-- Reservation Changed Successfuly -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="editSuccess"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="editSuccessLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editSuccessLabel">Success!</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            routerLink="/home"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <h1 class="display-6">Your Reservation was Changed.</h1>
+          <br />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            data-bs-dismiss="modal"
+            routerLink="/home"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Reservation Deleted Successfuly -->
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="deleteSuccess"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="deleteSuccessLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteSuccessLabel">Success!</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          routerLink="/home"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <h1 class="display-6">Your Reservation was Canceled.</h1>
-        <br />
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-warning"
-          data-bs-dismiss="modal"
-          routerLink="/home"
-        >
-          Close
-        </button>
+  <!-- Reservation Deleted Successfuly -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="deleteSuccess"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="deleteSuccessLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteSuccessLabel">Success!</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            routerLink="/home"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <h1 class="display-6">Your Reservation was Canceled.</h1>
+          <br />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            data-bs-dismiss="modal"
+            routerLink="/home"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ngb-toast>
