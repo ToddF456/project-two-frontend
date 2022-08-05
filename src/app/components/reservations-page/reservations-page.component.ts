@@ -28,6 +28,8 @@ export class ReservationsPageComponent implements OnInit {
   reservation!: Reservation;
   customer: Customer = new Customer();
   roomList: Room[] = [];
+  show = false;
+  autohide = true;
 
   constructor(
     private resService: ReservationService,
@@ -83,6 +85,10 @@ export class ReservationsPageComponent implements OnInit {
       .getReservationByConfirmationNum(this.resForm.value.resNumber)
       .subscribe((res) => {
         this.reservation = res;
+        if (this.reservation == null) {
+          this.show = true;
+          this.resForm.reset();
+        }
         this.tempValuesService.setReservation(this.reservation);
         this.customerService
           .getCustomer(res.customerId)
