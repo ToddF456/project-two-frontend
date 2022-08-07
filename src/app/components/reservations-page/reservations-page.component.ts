@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,11 +10,10 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { TempValuesService } from 'src/app/services/temp-values.service';
 import { Reservation } from 'src/models/reservation';
 import { Customer } from 'src/models/customer';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
 import { Room } from 'src/models/room';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'reservations-page',
@@ -30,13 +28,20 @@ export class ReservationsPageComponent implements OnInit {
   roomList: Room[] = [];
   show = false;
   autohide = true;
+  @ViewChild('reservationModal') reservationModal: any;
+  @ViewChild('cancelConfirmationModal') cancelConfirmationModal: any;
+  @ViewChild('successfulChangeModal') successfulChangeModal: any;
+  @ViewChild('successfulDeleteModal') successfulDeleteModal: any;
+  modalReference: any;
+  modalReference2: any;
 
   constructor(
     private resService: ReservationService,
     private customerService: CustomerService,
     private roomService: RoomService,
     private tempValuesService: TempValuesService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -96,11 +101,15 @@ export class ReservationsPageComponent implements OnInit {
             this.customer = results;
             this.tempValuesService.setCustomer(this.customer);
             this.editReservation(this.customer, this.reservation);
-            this.roomService
-              .getAllRooms()
-              .subscribe((resp) => (this.roomList = resp));
+            this.roomService.getAllRooms().subscribe((resp) => {
+              this.roomList = resp;
+              this.modalReference = this.modalService.open(
+                this.reservationModal
+              );
+            });
           });
       });
+    this.show = false;
     // this.router.navigate(['/reservations/change']);
   }
 
@@ -113,6 +122,15 @@ export class ReservationsPageComponent implements OnInit {
     this.resDetails.controls['startDate'].setValue(reservation.startDate);
     this.resDetails.controls['endDate'].setValue(reservation.endDate);
     this.resDetails.controls['roomType'].setValue(reservation.roomId);
+  }
+
+  close() {
+    this.modalReference.close();
+    this.modalReference2.close();
+  }
+
+  close2() {
+    this.modalReference2.close();
   }
 
   onSave() {
@@ -130,6 +148,9 @@ export class ReservationsPageComponent implements OnInit {
       console.log(res);
       this.resService.updateReservation(this.reservation).subscribe({
         next: (resp) => {
+          this.modalReference2 = this.modalService.open(
+            this.successfulChangeModal
+          );
           console.log(resp);
         },
         error: (err) => {
@@ -139,8 +160,14 @@ export class ReservationsPageComponent implements OnInit {
     });
   }
 
+  openConfirmation() {
+    this.modalReference2 = this.modalService.open(this.cancelConfirmationModal);
+  }
+
   onDelete() {
     this.resService.deleteReservation(this.reservation).subscribe((res) => {
+      this.close2();
+      this.modalReference2 = this.modalService.open(this.successfulDeleteModal);
       console.log(res);
     });
   }

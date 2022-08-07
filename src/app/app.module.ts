@@ -26,7 +26,7 @@ import { PhotoCarouselComponent } from './components/photo-carousel/photo-carous
     BookingFinalComponent,
     ReservationsPageComponent,
     NoRoomsAvailComponent,
-    PhotoCarouselComponent,
+    PhotoCarouselComponent
   ],
   imports: [
     BrowserModule,
