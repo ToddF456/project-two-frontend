@@ -52,7 +52,7 @@ export class BookingPageComponent implements OnInit {
         if (this.roomList.length === 0) {
         //   this.router.navigate(['/reservations/no-vacancy']);
           this.notAvailable = true;
-        }
+        } else { this.notAvailable = false; }
         this.roomList.map((room) => {
           // Getting all the images by room type
           switch (room.type) {
