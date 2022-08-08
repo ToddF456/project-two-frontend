@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TempValuesService } from 'src/app/services/temp-values.service';
@@ -8,6 +8,7 @@ import { Reservation } from 'src/models/reservation';
 import { DateTime } from 'luxon';
 import { Room } from 'src/models/room';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-booking-final',
@@ -20,12 +21,15 @@ export class BookingFinalComponent implements OnInit {
   reservation!: Reservation;
   room!: Room;
   grand_total: number = 0;
+  notAvailable = false;
+  @ViewChild('confirmationModal') confirmationModal: any;
+  modalReference: any;
 
   constructor(
     private tempValuesService: TempValuesService,
     private customerService: CustomerService,
     private reservationService: ReservationService,
-    private router: Router
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -85,10 +89,23 @@ export class BookingFinalComponent implements OnInit {
       console.log(res);
       this.reservationService
         .saveReservation(this.reservation)
-        .subscribe((result) => {
-          // this.router.navigate(['/home']);
-          console.log(result);
+        .subscribe({
+          next: (result) => {
+            this.notAvailable = false;
+            // this.router.navigate(['/home']);
+            console.log(result);
+            this.modalReference = this.modalService.open( this.confirmationModal );
+          },
+          error: (err) => {
+            this.notAvailable = true;
+            this.modalReference = this.modalService.open( this.confirmationModal );
+          }
         });
     });
   }
+
+  close() {
+    this.modalReference.close();
+  }
 }
+

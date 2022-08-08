@@ -122,8 +122,6 @@
           [disabled]="bookingModal.invalid"
           class="btn btn-warning"
           type="submit"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
         >
           Submit
         </button>
@@ -163,38 +161,34 @@
 
 <!-- Confirmation Modal -->
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<ng-template #confirmationModal>
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div  [hidden]="notAvailable" class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Success!</h5>
-        <button
+        <button 
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          routerLink="/home"
+          (click)="close()"
         ></button>
       </div>
-      <div class="modal-body">
+      <div [hidden]="notAvailable" class="modal-body">
         <h1 class="display-6">Your Reservation is Ready.</h1>
         <br />
-        <strong>Confirmation #: </strong>
+        <strong [hidden]="notAvailable" >Confirmation #: </strong>
         <p>{{ reservation.confirmationNumber }}</p>
+      </div>
+      <div [hidden]="!notAvailable" class="modal-body">
+        <h1 class="display-6">Sorry, this room is no longer available.</h1>
       </div>
       <div class="modal-footer">
         <button
           type="button"
           class="btn btn-outline-warning"
           data-bs-dismiss="modal"
+          (click)="close()"
           routerLink="/home"
         >
           Close
@@ -202,4 +196,4 @@
       </div>
     </div>
   </div>
-</div>
+</ng-template>
